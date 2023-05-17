@@ -1,9 +1,12 @@
+import { useState } from 'react'
 import img from '../assets/mainBack.jpg'
-import st from '../style/headerTall.css'
 import Login from '../components/home/Login'
+import Register from '../components/home/Register'
 import { minScreen } from '../constant/myConstant'
 
 export default function Home() {
+  const [watch, setWatch] = useState(false)
+
   return (
     <>
       <div
@@ -14,10 +17,9 @@ export default function Home() {
           backgroundPosition: 'center center',
           minHeight: minScreen
         }}
-      //className={st.tall}
       >
         <div className='w-1/4 mx-auto pt-8 '>
-          <Login />
+          {watch ? <Login stateWatch={setWatch} /> : <Register stateWatch={setWatch} />}
         </div>
       </div>
     </>
