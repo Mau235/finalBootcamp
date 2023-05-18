@@ -5,7 +5,7 @@ import Register from '../components/home/Register'
 import { minScreen } from '../constant/myConstant'
 
 export default function Home() {
-  const [watch, setWatch] = useState(false)
+  const [watch, setWatch] = useState(true)
 
   return (
     <>
