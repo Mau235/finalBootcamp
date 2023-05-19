@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export default function Transitions({ children, direction = 'left' }) {
   const res = direction === 'left' ? leftToRight : direction === 'right' ? rightToLeft : leftToRight
-
+  
   return (
     <>
       <motion.div
