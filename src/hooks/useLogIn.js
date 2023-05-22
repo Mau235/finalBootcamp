@@ -5,37 +5,29 @@ export const useLogin = async (form) => {
 
     const url = 'https://backend-recipes-bootcamps-tribe-production.up.railway.app/api/auth/login'
 
-    const header = {
+    const options = {
         method: 'POST',
         headers: HEADERS_CONTENT_TYPE,
-        body: {
-            "email":"admin@email.com",            
-             "password":"123456"            
-            }
+        body: JSON.stringify(form)
     }
 
-    console.log(header,'--headers')
+    const res = await fetch(url, options)
+    const data = await res.json()
 
-    const res = await fetch(url, header)
-
-    console.log(res,'--res')
-
-    // const data = await res.json()
-
-    // return data
+    return data
 }
 
 export const useRegister = async (form) => {
 
     const url = 'https://backend-recipes-bootcamps-tribe-production.up.railway.app/api/auth/signup'
 
-    const header = {
+    const options = {
         method: 'POST',
         headers: HEADERS_CONTENT_TYPE,
-        body: form
+        body: JSON.stringify(form)
     }
 
-    const res = await fetch(url, header)
+    const res = await fetch(url, options)
     const data = await res.json()
 
     return data

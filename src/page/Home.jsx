@@ -3,7 +3,7 @@ import img from '../assets/mainBack.jpg'
 import Login from '../components/home/Login'
 import Register from '../components/home/Register'
 import { minScreen } from '../constant/myConstant'
-
+import { toast, Toaster } from 'sonner'
 export default function Home() {
   const [watch, setWatch] = useState(true)
 
@@ -18,8 +18,10 @@ export default function Home() {
           minHeight: minScreen
         }}
       >
-        <div className='w-1/4 mx-auto pt-8 '>
-          {watch ? <Login stateWatch={setWatch} /> : <Register stateWatch={setWatch} />}
+        <div className='max-w-xs sm:max-w-md mx-auto pt-8 '>
+          {watch
+            ? <Login stateWatch={setWatch} />
+            : <Register stateWatch={setWatch} />}
         </div>
       </div>
     </>

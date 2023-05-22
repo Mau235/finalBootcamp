@@ -1,8 +1,8 @@
-import { Button, Metric, TextInput } from "@tremor/react";
+import { Button, Callout, Metric, TextInput } from "@tremor/react";
 import { useState } from "react";
 import Transitions from "../transitions/Transitions";
 import { useLogin } from "../../hooks/useLogIn";
-
+import { toast } from "sonner";
 export default function Login({ stateWatch }) {
   const [form, setForm] = useState({})
 
@@ -12,13 +12,20 @@ export default function Login({ stateWatch }) {
       ...form,
       [name]: value
     })
-    console.log(form,'--form')
   }
 
   const handlerSubmit = async () => {
     useLogin(form)
       .then(res => {
-        console.log(res, '---res')
+        toast.success(
+          <Callout
+            className="h-full border-2 border-teal-500"
+            title="Critical speed limit reached"
+            color="teal"
+          >
+            Turbine reached critical speed. Immediately reduce turbine speed.
+          </Callout>
+        )
       })
       .catch(err => {
         console.log(err, '---err');
