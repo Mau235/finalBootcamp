@@ -3,10 +3,15 @@ import { useContext, createContext } from "react";
 
 const DataContext = createContext()
 
-export const GlobalContext = ({ childre }) => {
+export const GlobalContext = ({ children }) => {
+  const [userData, setUserData] = useState({})
   return (
-    <DataContext.Provider value={{}}>
-      {childre}
+    <DataContext.Provider 
+      value={{
+        setUserData
+      }}
+      >
+      {children}
     </DataContext.Provider>
   )
 }

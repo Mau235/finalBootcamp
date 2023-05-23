@@ -14,7 +14,6 @@ export const useLogin = async (form) => {
     const res = await fetch(url, options)
     const data = await res.json()
 
-    return data
 }
 
 export const useRegister = async (form) => {

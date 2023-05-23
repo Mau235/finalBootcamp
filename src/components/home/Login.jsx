@@ -5,7 +5,7 @@ import { useLogin } from "../../hooks/useLogIn";
 import { toast } from "sonner";
 export default function Login({ stateWatch }) {
   const [form, setForm] = useState({})
-
+ 
   const handlerForm = (event) => {
     const { value, name } = event.target
     setForm({
@@ -15,21 +15,19 @@ export default function Login({ stateWatch }) {
   }
 
   const handlerSubmit = async () => {
-    useLogin(form)
-      .then(res => {
-        toast.success(
-          <Callout
-            className="h-full border-2 border-teal-500"
-            title="Critical speed limit reached"
-            color="teal"
-          >
-            Turbine reached critical speed. Immediately reduce turbine speed.
-          </Callout>
-        )
-      })
-      .catch(err => {
-        console.log(err, '---err');
-      })
+    try {
+      await useLogin(form) 
+      toast.success('Ingreso correcto')
+    } catch (error) {
+      console.log(error)
+      toast.error('No hay conección')
+
+    }
+
+
+
+    
+
   }
 
   return (
@@ -38,14 +36,27 @@ export default function Login({ stateWatch }) {
         className="p-8 bg-white rounded-lg border-2 border-black"
 
       >
-        <Metric className="text-center mb-8">Ingrese</Metric>
+        <Metric className="text-center mb-8">Ingresar</Metric>
         <div className="grid gap-4">
-          <TextInput type="email" placeholder='Email' name='email' onChange={handlerForm} />
-          <TextInput type='password' placeholder='Password' name='password' onChange={handlerForm} />
+          <TextInput
+            type="email"
+            placeholder='Email'
+            name='email'
+            onChange={handlerForm}
+          />
+          <TextInput
+            type='password'
+            placeholder='Password'
+            name='password'
+            onChange={handlerForm}
+          />
           <Button onClick={handlerSubmit}>
             Ingsar
           </Button>
-          <Button variant="light" onClick={() => stateWatch(false)}>
+          <Button
+            variant="light"
+            onClick={() => stateWatch(false)}
+          >
             Registrarse
           </Button>
 
