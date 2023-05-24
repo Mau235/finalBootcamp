@@ -1,7 +1,10 @@
 import Header from "./components/header/Header";
 import { Route, Routes } from "react-router-dom";
 import Home from "./page/Home";
-import { toast, Toaster } from 'sonner'
+import { Toaster } from 'sonner'
+import Wall from "./page/Wall";
+import img from './assets/mainBack.jpg'
+import { MIN_SCREEN } from "./constant/myConstant";
 
 function App() {
   document.title = 'Recetas'
@@ -10,9 +13,19 @@ function App() {
     <>
       <Toaster richColors />
       <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
+      <div
+        style={{
+          backgroundImage: `url(${img})`,
+          objectFit: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center center',
+          minHeight: MIN_SCREEN
+        }}
+      >
+        <Routes>
+          <Route path="/" element={<Wall />} />
+        </Routes>
+      </div>
     </>
   );
 }
