@@ -1,13 +1,12 @@
-import { motion } from "framer-motion";
-
+import { motion } from 'framer-motion';
 
 export default function Transitions({ children, direction = 'left' }) {
   const res =
     direction === 'left'
       ? leftToRight
-      : direction === 'right' 
-        ? rightToLeft
-        : leftToRight
+      : direction === 'right'
+      ? rightToLeft
+      : leftToRight;
 
   return (
     <>
@@ -19,18 +18,16 @@ export default function Transitions({ children, direction = 'left' }) {
         {children}
       </motion.div>
     </>
-  )
+  );
 }
 
 const rightToLeft = {
-  initial: { opacity: .8, x: 100, rotate: 2 },
-  animate: { opacity: 1, x: 0, rotate: 0 },
-  transition: {
-    duration: .7
-  }
-}
-
+  initial: { translateX: 60, skew: 5 },
+  animate: { translateX: 0, skew: 0 },
+  transition: { duration: 0.2, ease: 'backOut' },
+};
 const leftToRight = {
-  ...rightToLeft,
-  initial: { ...rightToLeft.initial, x: -100, rotate: -2 }
-}
+  initial: { ...rightToLeft.initial, translateX: -60, skew: -5 },
+  animate: { ...rightToLeft.animate },
+  transition: { ...rightToLeft.transition },
+};
