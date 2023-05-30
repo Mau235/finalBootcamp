@@ -3,9 +3,11 @@ import { useState } from 'react';
 import Transitions from '../transitions/Transitions';
 import { useLogin } from '../../hooks/useLogIn';
 import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login({ stateWatch }) {
   const [form, setForm] = useState({});
+  const go = useNavigate()
 
   const handlerForm = (event) => {
     const { value, name } = event.target;
@@ -16,13 +18,15 @@ export default function Login({ stateWatch }) {
   };
 
   const handlerSubmit = async () => {
-    try {
-      await useLogin(form);
-      toast.success('Ingreso correcto');
-    } catch (error) {
-      console.log(error);
-      toast.error('No hay conección');
-    }
+    /* try {
+       await useLogin(form);
+       toast.success('Ingreso correcto');
+     } catch (error) {
+       console.log(error);
+       toast.error('No hay conección');
+     }*/
+    toast.success('Ingreso correctamente')
+    go('/wall')
   };
 
   return (

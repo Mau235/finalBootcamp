@@ -6,7 +6,7 @@ import Recipes from '../components/recipes/Recipes';
 
 export default function Wall() {
   return (
-    <div className={`${BODY_CONTAINER} pt-6`}>
+    <div className={BODY_CONTAINER}>
       <div className='rounded-lg border-2 border-black bg-white p-6 mb-6'>
         <h1 className='text-3xl font-semibold'>Recetas </h1>
         

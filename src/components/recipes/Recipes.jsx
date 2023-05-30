@@ -1,6 +1,8 @@
 import { Badge, Button, Card, Divider, Metric } from '@tremor/react';
+import { useNavigate } from 'react-router-dom';
 import { capitalize } from '../../helpers/tools';
-import { plus } from '../../icons';
+import { plus } from '../icons';
+
 export default function Recipes({
   _id,
   name,
@@ -8,10 +10,16 @@ export default function Recipes({
   ingredients,
   imagePath,
 }) {
-  console.log(ingredients);
+  const go = useNavigate()
+
+  const handlerPluus = () =>{
+    go(`/wall/receta/${_id}`)
+  }
+  
+
   return (
     <Card
-      className="bg-white rounded-lg min-w-[300px]"
+      className="bg-white rounded-lg min-w-[300px] "
       decoration="bottom"
       decorationColor="gray"
     >
@@ -24,23 +32,15 @@ export default function Recipes({
             className="rounded-tr-lg rounded-tl-lg border-t-4 border-blue-400"
           />
         </div>
-        {/* <span className="font-medium">{description}</span>
-        <Divider />
-        <ul className="min-h-[80px]">
-          {ingredients.map((ingrediente) => (
-            <Badge key={ingrediente} className="mr-1 my-1">
-              {capitalize(ingrediente)}
-            </Badge>
-          ))}
-        </ul> */}
+        
         <div className="flex justify-end">
           <Button
             size="xs"
             variant="primary"
             icon={plus}
-            onClick={() => console.log('clicked')}
+            onClick={handlerPluus}
           >
-            Mas
+            Mas        
           </Button>
         </div>
       </div>

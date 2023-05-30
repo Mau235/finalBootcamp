@@ -2,9 +2,12 @@ import { Button, Metric, TextInput } from "@tremor/react";
 import Transitions from "../transitions/Transitions";
 import { useState } from "react";
 import { useRegister } from "../../hooks/useLogIn";
+import { toast } from "sonner";
+import { useNavigate } from 'react-router-dom';
 
 export default function Register({ stateWatch }) {
   const [form, setForm] = useState({})
+  const go = useNavigate()
 
   const handlerRegister = (event) => {
     const { name, value } = event.target
@@ -16,10 +19,12 @@ export default function Register({ stateWatch }) {
   }
 
   const handlerSubmit = () => {
-    useRegister(form)
-      .then(data => {
-        console.log(data, '----dataReg')
-      })
+    /* useRegister(form)
+       .then(data => {
+         console.log(data, '----dataReg')
+       }) */
+    toast.success('Se reguistro su cuenta correctamente')
+    go('/wall')
   }
 
   return (

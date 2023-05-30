@@ -5,6 +5,7 @@ import { Toaster } from 'sonner'
 import Wall from "./page/Wall";
 import img from './assets/mainBack.jpg'
 import { MIN_SCREEN } from "./constant/myConstant";
+import OneRecipe from "./page/OneRecipe";
 
 function App() {
   document.title = 'Recetas'
@@ -19,11 +20,14 @@ function App() {
           objectFit: 'cover',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center center',
+          transition:'backgroundPosition .2s .5s',
           minHeight: MIN_SCREEN
         }}
       >
         <Routes>
-          <Route path="/" element={<Wall />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/wall" element={<Wall />} />
+          <Route path="/wall/receta/:id" element={<OneRecipe />} />
         </Routes>
       </div>
     </>
