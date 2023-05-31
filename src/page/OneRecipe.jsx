@@ -46,7 +46,7 @@ export default function OneRecipe() {
               <Button
                 variant='primary'
                 icon={buy}
-                className="mt-8"
+                className="mt-8"  
               >
                 Agregar productos
               </Button>

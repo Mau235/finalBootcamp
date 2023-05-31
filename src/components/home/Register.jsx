@@ -15,16 +15,21 @@ export default function Register({ stateWatch }) {
       ...form,
       [name]: value
     })
-    console.log(form)
   }
 
-  const handlerSubmit = () => {
-    /* useRegister(form)
-       .then(data => {
-         console.log(data, '----dataReg')
-       }) */
-    toast.success('Se reguistro su cuenta correctamente')
-    go('/wall')
+  const handlerSubmit = async () => {
+    try {
+      const res = await useRegister(form)
+      if (res.errors) {
+        toast.error('Hubo un error al reguistrarse')
+      } else {
+        toast.success('Registro correcto !!!');
+        go('/wall')
+      }
+      console.log(res, '--res')
+    } catch (error) {
+      console.log(error, '--error')
+    }
   }
 
   return (

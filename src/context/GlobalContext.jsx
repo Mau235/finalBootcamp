@@ -1,19 +1,27 @@
-
-import { useContext, createContext } from "react";
+import { useContext, createContext, useState } from "react";
 
 const DataContext = createContext()
 
 export const GlobalContext = ({ children }) => {
-  const [userData, setUserData] = useState({})
+  const [userData, setUserData] = useState()
+  
+  const logIn = (data) => {
+    setUserData(data)
+  }
+
   return (
-    <DataContext.Provider 
+    <DataContext.Provider
       value={{
-        setUserData
+        setUserData,
+        userData,
+        logIn
       }}
-      >
+    >
       {children}
     </DataContext.Provider>
   )
 }
 
-export const useGrobalContext = () => useContext(DataContext)
+export const useGlobalContext = () => {
+  return useContext(DataContext)
+}

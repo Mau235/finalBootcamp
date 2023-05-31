@@ -4,9 +4,11 @@ import Transitions from '../transitions/Transitions';
 import { useLogin } from '../../hooks/useLogIn';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
+import { useGlobalContext } from '../../context/GlobalContext';
 
 export default function Login({ stateWatch }) {
   const [form, setForm] = useState({});
+  const { logIn, setUserData, userData } = useGlobalContext()
   const go = useNavigate()
 
   const handlerForm = (event) => {
@@ -18,15 +20,51 @@ export default function Login({ stateWatch }) {
   };
 
   const handlerSubmit = async () => {
-    /* try {
-       await useLogin(form);
-       toast.success('Ingreso correcto');
-     } catch (error) {
-       console.log(error);
-       toast.error('No hay conección');
-     }*/
-    toast.success('Ingreso correctamente')
-    go('/wall')
+    /*  try {
+       const res = await useLogin(form);
+        console.log(res, '--res Login');
+        if (res.errors) {
+          toast.error('Hubo un error en el usuario o la contraseña');
+        } else {
+          toast.success('Ingreso correcto');
+          go('/wall')
+        }*/
+
+    toast.promise(useLogin(form), {
+      loading: 'Ingresando...',
+      success: (data) => {
+        logIn(data)
+        go('/wall')
+        return `Ingreso correcto de ${data.email}`
+      },
+      error: 'Hubo un error en el usuario o la contraseña',
+    })
+
+
+
+    /*  toast.promise(promise, {
+        loading: 'Loading...',
+        success: (data) => {
+          return `${data.name} has been added!`;
+        },
+        error: 'Error',
+      });
+
+
+
+
+
+
+
+
+
+
+
+  } catch (error) {
+    console.log(error);
+    toast.error('No hay conección');
+  }
+*/
   };
 
   return (
@@ -41,7 +79,6 @@ export default function Login({ stateWatch }) {
             onChange={handlerForm}
           />
           <TextInput
-            type="password"
             placeholder="Password"
             name="password"
             onChange={handlerForm}
