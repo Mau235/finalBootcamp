@@ -1,14 +1,14 @@
 import { Button, Metric, TextInput } from '@tremor/react';
 import { useState } from 'react';
 import Transitions from '../transitions/Transitions';
-import { useLogin } from '../../hooks/useLogIn';
+import { login } from '../../fetch/fetchLogIn';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useGlobalContext } from '../../context/GlobalContext';
 
 export default function Login({ stateWatch }) {
   const [form, setForm] = useState({});
-  const { logIn, setUserData, userData } = useGlobalContext()
+  const { setUserData } = useGlobalContext()
   const go = useNavigate()
 
   const handlerForm = (event) => {
@@ -20,51 +20,15 @@ export default function Login({ stateWatch }) {
   };
 
   const handlerSubmit = async () => {
-    /*  try {
-       const res = await useLogin(form);
-        console.log(res, '--res Login');
-        if (res.errors) {
-          toast.error('Hubo un error en el usuario o la contraseña');
-        } else {
-          toast.success('Ingreso correcto');
-          go('/wall')
-        }*/
-
-    toast.promise(useLogin(form), {
+    toast.promise(login(form), {
       loading: 'Ingresando...',
       success: (data) => {
-        logIn(data)
+        setUserData(data)
         go('/wall')
-        return `Ingreso correcto de ${data.email}`
+        return `${data.email} ingreso correctamente`
       },
       error: 'Hubo un error en el usuario o la contraseña',
     })
-
-
-
-    /*  toast.promise(promise, {
-        loading: 'Loading...',
-        success: (data) => {
-          return `${data.name} has been added!`;
-        },
-        error: 'Error',
-      });
-
-
-
-
-
-
-
-
-
-
-
-  } catch (error) {
-    console.log(error);
-    toast.error('No hay conección');
-  }
-*/
   };
 
   return (

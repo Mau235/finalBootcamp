@@ -12,7 +12,7 @@ function App() {
 
   return (
     <>
-      <Toaster richColors position="top-right" />
+      <Toaster richColors position="top-center" />
       <Header />
       <div
         style={{
@@ -20,7 +20,6 @@ function App() {
           objectFit: 'cover',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center center',
-          transition:'backgroundPosition .2s .5s',
           minHeight: MIN_SCREEN
         }}
       >

@@ -1,4 +1,4 @@
-export const data = [
+export const dataMy = [
   {
     _id: '645bbcf6eeafb49829dd3be8',
     name: 'Pollo al horno 2',

@@ -12,10 +12,10 @@ export default function Recipes({
 }) {
   const go = useNavigate()
 
-  const handlerPluus = () =>{
+  const handlerPluus = () => {
     go(`/wall/receta/${_id}`)
   }
-  
+
 
   return (
     <Card
@@ -32,15 +32,16 @@ export default function Recipes({
             className="rounded-tr-lg rounded-tl-lg border-t-4 border-blue-400"
           />
         </div>
-        
-        <div className="flex justify-end">
+
+        <div className="flex justify-center">
           <Button
             size="xs"
             variant="primary"
             icon={plus}
             onClick={handlerPluus}
+            className='px-8'
           >
-            Mas        
+            Ver ingredientes
           </Button>
         </div>
       </div>

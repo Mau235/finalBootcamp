@@ -1,8 +1,7 @@
-import Login from "../components/home/Login"
 import { HEADERS_CONTENT_TYPE } from "../constant/myConstant"
 
 
-export const useLogin = async (form) => {
+export const login = async (form) => {
 
     const url = 'https://backend-recipes-bootcamps-tribe.onrender.com/api/auth/login'
 
@@ -15,14 +14,14 @@ export const useLogin = async (form) => {
     const data = await fetch(url, options)
     const res = await data.json()
 
-    if (!res.idToken){
-         throw new Error('No ingreso')
+    if (!res.idToken) {
+        throw new Error('No ingreso')
     }
 
     return res
 }
 
-export const useRegister = async (form) => {
+export const register = async (form) => {
 
     const url = 'https://backend-recipes-bootcamps-tribe.onrender.com/api/auth/signup'
 
@@ -32,8 +31,11 @@ export const useRegister = async (form) => {
         body: JSON.stringify(form)
     }
 
-    const res = await fetch(url, options)
-    const data = await res.json()
+    const data = await fetch(url, options)
+    const res = await data.json()
 
-    return data
+    if (!res.idToken) {
+        throw new Error('No se pudo registrar el usuario')
+    }
+    return res
 }

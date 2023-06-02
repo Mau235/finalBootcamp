@@ -1,13 +1,15 @@
+import { useState } from "react";
 import { Button, Metric, TextInput } from "@tremor/react";
 import Transitions from "../transitions/Transitions";
-import { useState } from "react";
-import { useRegister } from "../../hooks/useLogIn";
+import { register } from "../../fetch/fetchLogIn";
 import { toast } from "sonner";
 import { useNavigate } from 'react-router-dom';
+import { useGlobalContext } from "../../context/GlobalContext";
 
 export default function Register({ stateWatch }) {
   const [form, setForm] = useState({})
   const go = useNavigate()
+  const { setUserData } = useGlobalContext()
 
   const handlerRegister = (event) => {
     const { name, value } = event.target
@@ -18,18 +20,17 @@ export default function Register({ stateWatch }) {
   }
 
   const handlerSubmit = async () => {
-    try {
-      const res = await useRegister(form)
-      if (res.errors) {
-        toast.error('Hubo un error al reguistrarse')
-      } else {
-        toast.success('Registro correcto !!!');
+    toast.promise(register(form), {
+      loading: 'Registrando...',
+      success: (data) => {
+        setUserData(data)
         go('/wall')
+        return `${data.email} registro correctamente`
+      },
+      error: (err) => {
+        return `Hubo un error al crear un usuario (${err}`
       }
-      console.log(res, '--res')
-    } catch (error) {
-      console.log(error, '--error')
-    }
+    })   
   }
 
   return (
