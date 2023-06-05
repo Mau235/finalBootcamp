@@ -1,5 +1,4 @@
 import { useParams, useNavigate } from "react-router-dom"
-import { data } from '../data'
 import { useEffect, useState } from "react"
 import { BODY_CONTAINER, BODY_CONTAINER_MD } from "../constant/myConstant"
 import { Badge, Button, Divider, Metric, Text, Title } from "@tremor/react"
@@ -46,7 +45,7 @@ export default function OneRecipe() {
               <Button
                 variant='primary'
                 icon={buy}
-                className="mt-8"  
+                className="mt-8"
               >
                 Agregar productos
               </Button>
@@ -63,7 +62,34 @@ const recipData = {
   _id: '645bbc&yhf6eeafb49829dd3bt8',
   name: 'Pizza al horno',
   description: 'Pizza a la piedra con queso y tomates',
-  ingredients: ['Arina', 'Lebadura', 'Queso', 'tomates', 'Salsa'],
+   ingredients: ['Arina', 'Lebadura', 'Queso', 'tomates', 'Salsa'],
+ /*  ingredients: [
+    {
+      id: 1,
+      name: 'arina',
+      description: '250 gramos'
+    },
+    {
+      id: 2,
+      name: 'lebadura',
+      description: '20 gramos'
+    },
+    {
+      id: 3,
+      name: 'queso',
+      description: '1/2 kilo'
+    },
+    {
+      id: 4,
+      name: 'tomates',
+      description: '5 tomates'
+    },
+    {
+      id: 6,
+      name: 'arina',
+      description: '250g'
+    },
+  ],*/
   imagePath:
     'https://mccormick.widen.net/content/gc9if6yrrt/original/pizza_aux_2_tomates_et_a_la_feta_2000x1125.jpg',
   userEmail: 'admin@mail.com',

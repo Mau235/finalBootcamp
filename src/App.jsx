@@ -6,6 +6,7 @@ import Wall from "./page/Wall";
 import img from './assets/mainBack.jpg'
 import { MIN_SCREEN } from "./constant/myConstant";
 import OneRecipe from "./page/OneRecipe";
+import CreateAndEdit from "./page/CreateAndEdit";
 
 function App() {
   document.title = 'Recetas'
@@ -27,6 +28,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/wall" element={<Wall />} />
           <Route path="/wall/receta/:id" element={<OneRecipe />} />
+          <Route path="/wall/crear" element={<CreateAndEdit />} />
         </Routes>
       </div>
     </>

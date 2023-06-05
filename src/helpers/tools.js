@@ -5,3 +5,6 @@ export const capitalize = (word) => {
     return res
 };
 
+
+// crea un id unico 
+export const createId = () => new Date().getTime();
