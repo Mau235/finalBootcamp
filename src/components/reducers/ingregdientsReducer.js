@@ -1,10 +1,11 @@
+import { createId } from "../../helpers/tools"
 
-
-export const ingregdientsReducer = ( state = [] , action) => {
+export const ingregdientsReducer = (state = [], action) => {
     switch (action.type) {
         case '[INGR] Add':
-            return [...state, action.payload]        
-    
-        default: state
+            return [...state, { id: createId(), name: action.payload }]
+
+        default:
+            return state
     }
 }
