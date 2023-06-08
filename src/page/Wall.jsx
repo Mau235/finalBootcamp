@@ -4,21 +4,21 @@ import { getWall } from '../fetch/featchWall';
 import { useGlobalContext } from '../context/GlobalContext';
 import NoRecipes from '../components/recipes/NoRecipes';
 import ContRecipes from '../components/recipes/ContRecipes';
-import { dataMy } from '../data';
 
 export default function Wall() {
-  const { userData } = useGlobalContext()
+  const { userData, setAllRecipe } = useGlobalContext()
   const [data, setData] = useState([])
-  const [look, setLook] = useState(true)
+  const [look, setLook] = useState(false)
 
-  const handlerStart = () => {
-    setData(getWall(userData.idToken))
-
-  /*   if (data.length === 0) {
+  const handlerStart = async () => {
+    const res = await getWall(userData.idToken)
+    setData(res)
+    setAllRecipe(res)
+    if (res.length === 0) {
       setLook(false)
     } else {
       setLook(true)
-    } */
+    }
   }
   useEffect(() => {
     handlerStart()
@@ -32,7 +32,7 @@ export default function Wall() {
         <h1 className='text-3xl font-semibold text-center'>Tus recetas</h1>
       </div>
       {look ? (
-        <ContRecipes dataAll={dataMy} />
+        <ContRecipes dataAll={data} />
       ) : (
         <NoRecipes />
       )}

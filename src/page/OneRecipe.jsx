@@ -1,97 +1,68 @@
 import { useParams, useNavigate } from "react-router-dom"
-import { useEffect, useState } from "react"
-import { BODY_CONTAINER, BODY_CONTAINER_MD } from "../constant/myConstant"
+import { useEffect, useLayoutEffect, useState } from "react"
+import { BODY_CONTAINER } from "../constant/myConstant"
 import { Badge, Button, Divider, Metric, Text, Title } from "@tremor/react"
-import { capitalize } from "../helpers/tools"
-import { back, buy } from "../components/icons"
-
+import { back, buy, plus } from "../components/icons"
+import { useGlobalContext } from "../context/GlobalContext"
 
 export default function OneRecipe() {
-  const [recip, setRecip] = useState(recipData)
+  const [recip, setRecip] = useState(null)
   const { id } = useParams()
+  const { getOneRecipe } = useGlobalContext()
   const go = useNavigate()
 
+  useEffect(() => {
+    setRecip(getOneRecipe(id))
+  }, [])
 
   return (
     <>
-      <div className={BODY_CONTAINER}>
-        <div className="flex gap-4 bg-white rounded-lg border-2 border-black ">
-          <img
-            src={recip.imagePath}
-            alt={recip.description}
-            className="max-w-[50%] rounded-tl-lg rounded-tr-gl"
-          />
-          <div className="my-auto">
-            <Metric className="-ml-[2px] ">{recip.name}</Metric>
-            <Title className="font-medium mt-4">{recip.description}</Title>
-            <Divider />
-            <Text>Productos para preparar la receta de forma correcta</Text>
-            <ul>
-              {recip.ingredients.map((ingredient) => (
-                <Badge key={ingredient} className="mr-1 my-1">
-                  <span className="text-lg">{capitalize(ingredient)}</span>
-                </Badge>
-              ))}
-            </ul>
-            <div className="flex justify-between">
-              <Button
-                variant='secondary'
-                icon={back}
-                className="mt-8"
-                onClick={() => go('/wall')}
-              >
-                Volver
-              </Button>
-              <Button
-                variant='primary'
-                icon={buy}
-                className="mt-8"
-              >
-                Agregar productos
-              </Button>
+      {recip !== null ? (
+        <div className={BODY_CONTAINER}>
+          <div className="flex gap-4 bg-white rounded-lg border-2 border-black ">
+            <img
+              src={recip.imagePath}
+              alt={recip.description}
+              className="max-w-[50%] rounded-tl-lg rounded-tr-gl"
+            />
+            <div className="my-auto p-6">
+              <Metric className="-ml-[2px]">{recip.name}</Metric>
+              <Title className="font-medium mt-4">{recip.description}</Title>
+              <Divider />
+              <Text>Productos para preparar la receta de forma correcta</Text>
+              <ul>
+                {recip.ingredients.map((ingredient) => (
+                  <Badge key={ingredient} className="mr-1 my-1">
+                    <span className="text-lg">{ingredient.name}</span>
+                  </Badge>
+                ))}
+              </ul>
+              <div className="flex justify-between">
+                <Button
+                  variant='secondary'
+                  icon={back}
+                  className="mt-8"
+                  onClick={() => go('/wall')}
+                >
+                  Volver
+                </Button>
+                <Button
+                  variant='primary'
+                  icon={plus}
+                  className="mt-8"
+                >
+                  Agregar productos
+                </Button>
+              </div>
             </div>
-          </div>
 
+          </div>
         </div>
-      </div>
+      ) : (
+        <></>
+      )}
+
     </>
   )
 }
 
-const recipData = {
-  _id: '645bbc&yhf6eeafb49829dd3bt8',
-  name: 'Pizza al horno',
-  description: 'Pizza a la piedra con queso y tomates',
-   ingredients: ['Arina', 'Lebadura', 'Queso', 'tomates', 'Salsa'],
- /*  ingredients: [
-    {
-      id: 1,
-      name: 'arina',
-      description: '250 gramos'
-    },
-    {
-      id: 2,
-      name: 'lebadura',
-      description: '20 gramos'
-    },
-    {
-      id: 3,
-      name: 'queso',
-      description: '1/2 kilo'
-    },
-    {
-      id: 4,
-      name: 'tomates',
-      description: '5 tomates'
-    },
-    {
-      id: 6,
-      name: 'arina',
-      description: '250g'
-    },
-  ],*/
-  imagePath:
-    'https://mccormick.widen.net/content/gc9if6yrrt/original/pizza_aux_2_tomates_et_a_la_feta_2000x1125.jpg',
-  userEmail: 'admin@mail.com',
-  __v: 0,
-}

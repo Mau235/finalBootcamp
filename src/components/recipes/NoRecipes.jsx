@@ -1,8 +1,10 @@
 import { Button } from "@tremor/react";
 import { plus } from "../icons";
-
+import { useNavigate } from "react-router-dom";
 
 export default function NoRecipes() {
+  const go = useNavigate()
+  
   return (
     <div className="w-full h-[400px] bg-gray-50 flex justify-center items-center z-20 rounded-lg border-2 border-black ">
       <div className="flex flex-col items-center">
@@ -11,6 +13,7 @@ export default function NoRecipes() {
           <Button
             variant="primary"
             icon={plus}
+            onClick={() => go('/wall/crear')}
           >
             Crear recetas
           </Button>
