@@ -11,8 +11,6 @@ export const getWall = async (idToken) => {
     }
     const data = await fetch(url, options)
     const res = await data.json()
-    console.log(res,'---res')
-
 
     return res
 }

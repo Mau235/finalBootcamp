@@ -33,11 +33,10 @@ export default function Recipes({
           <Button
             size="xs"
             variant="primary"
-            icon={plus}
             onClick={handlerPlus}
             className={`px-8 py-2 ${st.buttom}`}
           >
-            Ver ingredientes
+            Leer Receta
           </Button>
         </div>
       </div>

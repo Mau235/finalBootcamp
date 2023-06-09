@@ -1,19 +1,15 @@
 import { Badge, Button, TextInput, Title } from "@tremor/react"
-import { BODY_CONTAINER } from "../constant/myConstant"
+import { BODY_CONTAINER, BORDER_BLACK } from "../constant/myConstant"
 import { capitalize } from "../helpers/tools"
 import { useNavigate } from "react-router-dom"
 import { useReducer, useRef, useState } from "react"
 import { ingregdientsReducer } from "../components/reducers/ingregdientsReducer"
-import { back, deleteIco, plus } from "../components/icons"
+import { back, plus } from "../components/icons"
 import { toast } from "sonner"
 import { useGlobalContext } from '../context/GlobalContext'
 import { AddRecipeFetch } from "../fetch/fetchAddRecipe"
 
-const Icon = {
-  plus,
-  delete: deleteIco
-}
-
+const Icon = { plus }
 
 export default function CreateAndEdit() {
   const [stateIngredient, dispatch] = useReducer(ingregdientsReducer, [])
@@ -61,7 +57,7 @@ export default function CreateAndEdit() {
 
   return (
     <div className={BODY_CONTAINER}>
-      <div className="grid md:grid-cols-2  bg-white rounded-lg border-2 border-black">
+      <div className={`grid md:grid-cols-2 ${BORDER_BLACK}`} >
         <div className="flex justify-center items-center py-6 md:py-0"
           style={{
             backgroundImage: `url(${form.imagePath ?? form.imagePath})`,

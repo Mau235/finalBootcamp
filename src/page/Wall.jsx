@@ -1,9 +1,7 @@
 import { BODY_CONTAINER, BORDER_BLACK } from '../constant/myConstant';
 import { useEffect, useState } from 'react';
-import { getWall } from '../fetch/featchWall';
+import { getWall } from '../fetch/fetchWall';
 import { useGlobalContext } from '../context/GlobalContext';
-import NoRecipes from '../components/recipes/NoRecipes';
-import ContRecipes from '../components/recipes/ContRecipes';
 import ContSpinner from '../components/spinner/ContSpinner';
 import ContAllDataToWall from '../components/recipes/ContAllDataToWall';
 
@@ -33,7 +31,10 @@ export default function Wall() {
       <div className={`${BORDER_BLACK} p-6 mb-6`}>
         <h1 className='text-3xl font-semibold text-center'>Tus recetas</h1>
       </div>
-      {loading ? <ContSpinner /> : <ContAllDataToWall data={data} look={look} />}
+      {loading
+        ? <ContSpinner />
+        : <ContAllDataToWall data={data} look={look} />
+      }
 
     </div>
   );

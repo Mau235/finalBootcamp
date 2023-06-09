@@ -7,10 +7,9 @@ import img from './assets/mainBack.jpg'
 import { MIN_SCREEN } from "./constant/myConstant";
 import OneRecipe from "./page/OneRecipe";
 import CreateAndEdit from "./page/CreateAndEdit";
-
+import Modal from "./components/Modal";
 function App() {
   document.title = 'Recetas'
-
   return (
     <>
       <Toaster richColors position="top-center" />

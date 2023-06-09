@@ -6,6 +6,7 @@ export const GlobalContext = ({ children }) => {
   const [userData, setUserData] = useState({})
   const [idToken, setIdToken] = useState(null)
   const [allRecipe, setAllRecipe] = useState([])
+  const [modalLook, setModalLook] = useState(false)
   
   useEffect(() => {
     setIdToken(userData.idToken)
@@ -22,7 +23,8 @@ export const GlobalContext = ({ children }) => {
         userData,
         idToken,
         setAllRecipe,
-        getOneRecipe
+        getOneRecipe,
+        modalLook
       }}
     >
       {children}
