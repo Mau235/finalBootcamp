@@ -5,7 +5,9 @@ import { Badge, Button, Divider, Metric, Text, Title } from "@tremor/react"
 import { back, plus, deleteIco } from "../components/icons"
 import { useGlobalContext } from "../context/GlobalContext"
 import { capitalize } from "../helpers/tools"
+import { deleteRcipes } from "../fetch/fetchDelete"
 import Modal from "../components/Modal"
+import { toast } from "sonner"
 
 const Icon = {
   delete: deleteIco
@@ -14,7 +16,7 @@ const Icon = {
 export default function OneRecipe() {
   const [recip, setRecip] = useState(null)
   const { id } = useParams()
-  const { getOneRecipe } = useGlobalContext()
+  const { getOneRecipe, userData } = useGlobalContext()
   const go = useNavigate()
   const [show, setShow] = useState(false)
 
@@ -22,12 +24,23 @@ export default function OneRecipe() {
     setRecip(getOneRecipe(id))
   }, [])
 
+  const handlerDelete = () => {
+    toast.promise(deleteRcipes(id, userData.idToken), {
+      loading: 'Eliminando...',
+      success: () => {
+        go('/wall')
+        return 'Se elimino correctamente';
+      },
+      error: 'No se pudo borrar',
+    });
+  }
+
   return (
     <>
       {recip !== null ? (
         <div className={BODY_CONTAINER}>
           <div className={`flex gap-4 ${BORDER_BLACK}`}>
-            <Modal action={show} setShow={setShow} />
+            <Modal show={show} setShow={setShow} name={recip.name} action={() => handlerDelete()} />
             <img
               src={recip.imagePath}
               alt={recip.description}
@@ -47,8 +60,8 @@ export default function OneRecipe() {
               <Text>Productos para preparar la receta de forma correcta</Text>
               <ul>
                 {recip.ingredients.map((ingredient) => (
-                  <Badge key={ingredient} className="mr-1 my-1">
-                    <span className="text-lg" key={ingredient.id}>{capitalize(ingredient.name.trim())}</span>
+                  <Badge key={ingredient.id} className="mr-1 my-1">
+                    <span className="text-lg">{capitalize(ingredient.name.trim())}</span>
                   </Badge>
                 ))}
               </ul>
