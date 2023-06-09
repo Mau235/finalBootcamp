@@ -14,10 +14,10 @@ const Icon = {
 }
 
 export default function OneRecipe() {
-  const [recip, setRecip] = useState(null)
-  const { id } = useParams()
   const { getOneRecipe, userData } = useGlobalContext()
+  const { id } = useParams()
   const go = useNavigate()
+  const [recip, setRecip] = useState(null)
   const [show, setShow] = useState(false)
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function OneRecipe() {
                 <div
                   className="px-1 hover:cursor-pointer"
                   onClick={() => setShow(true)}>
-                  <Icon.delete />
+                  <Icon.delete className='text-blue-800' />
                 </div>
               </div>
               <Metric className="-ml-[2px]">{recip.name}</Metric>

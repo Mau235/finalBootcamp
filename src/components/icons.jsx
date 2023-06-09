@@ -105,3 +105,4 @@ export const deleteIco = ({ className }) => {
     </svg>
   )
 }
+

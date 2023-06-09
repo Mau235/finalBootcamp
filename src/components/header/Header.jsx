@@ -2,7 +2,7 @@ import { useGlobalContext } from "../../context/GlobalContext"
 import { UserLog } from "../icons"
 import { Button } from "@tremor/react"
 import { useNavigate } from "react-router-dom"
-
+import logo from '../../assets/logo.png'
 export default function Header() {
   const { userData, setUserData } = useGlobalContext()
   const go = useNavigate()
@@ -18,7 +18,9 @@ export default function Header() {
         <div className="px-1 sm:px-4 h-full">
           <div className="flex items-center justify-between h-full">
             <div className="flex gap-4">
-              <h1>Logo</h1>
+              <h1>
+                <img src={logo} alt="Logo de accenture en blanco" className="w-6" />
+              </h1>
               {userData.email ? (
                 <Button
                   variant="light"
