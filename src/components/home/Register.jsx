@@ -5,6 +5,7 @@ import { register } from "../../fetch/fetchLogIn";
 import { toast } from "sonner";
 import { useNavigate } from 'react-router-dom';
 import { useGlobalContext } from "../../context/GlobalContext";
+import { BORDER_BLACK } from "../../constant/myConstant";
 
 export default function Register({ stateWatch }) {
   const [form, setForm] = useState({})
@@ -35,7 +36,7 @@ export default function Register({ stateWatch }) {
 
   return (
     <Transitions direction='left'>
-      <div className="p-8 bg-white rounded-lg border-2 border-black" >
+      <div className={`p-8 ${BORDER_BLACK}`} >
         <Metric className="text-center mb-8">Registrarse</Metric>
         <div className="grid gap-4">
           <TextInput placeholder='Nombre completo' />

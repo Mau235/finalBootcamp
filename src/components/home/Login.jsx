@@ -5,7 +5,7 @@ import { login } from '../../fetch/fetchLogIn';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useGlobalContext } from '../../context/GlobalContext';
-
+import { BORDER_BLACK } from '../../constant/myConstant';
 export default function Login({ stateWatch }) {
   const [form, setForm] = useState({});
   const { setUserData } = useGlobalContext()
@@ -33,7 +33,7 @@ export default function Login({ stateWatch }) {
 
   return (
     <Transitions direction="right">
-      <div className="p-8 bg-white rounded-lg border-2 border-black">
+      <div className={`p-8 ${BORDER_BLACK}`}>
         <Metric className="text-center mb-8">Ingresar</Metric>
         <div className="grid gap-4">
           <TextInput

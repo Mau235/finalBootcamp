@@ -1,10 +1,10 @@
+import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { useEffect, useLayoutEffect, useState } from "react"
 import { BODY_CONTAINER } from "../constant/myConstant"
 import { Badge, Button, Divider, Metric, Text, Title } from "@tremor/react"
-import { back, buy, plus } from "../components/icons"
+import { back, plus } from "../components/icons"
 import { useGlobalContext } from "../context/GlobalContext"
-
+import { capitalize } from "../helpers/tools"
 export default function OneRecipe() {
   const [recip, setRecip] = useState(null)
   const { id } = useParams()
@@ -33,7 +33,7 @@ export default function OneRecipe() {
               <ul>
                 {recip.ingredients.map((ingredient) => (
                   <Badge key={ingredient} className="mr-1 my-1">
-                    <span className="text-lg">{ingredient.name}</span>
+                    <span className="text-lg">{capitalize(ingredient.name.trim())}</span>
                   </Badge>
                 ))}
               </ul>

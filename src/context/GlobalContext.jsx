@@ -6,6 +6,7 @@ export const GlobalContext = ({ children }) => {
   const [userData, setUserData] = useState({})
   const [idToken, setIdToken] = useState(null)
   const [allRecipe, setAllRecipe] = useState([])
+  
   useEffect(() => {
     setIdToken(userData.idToken)
   }, [userData.email])
