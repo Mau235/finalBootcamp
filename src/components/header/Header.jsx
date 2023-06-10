@@ -26,7 +26,7 @@ export default function Header() {
                   variant="light"
                   onClick={() => go('/wall/crear')}
                 >
-                  Crear
+                  Crear Recetas
                 </Button>
               ) :
                 <>

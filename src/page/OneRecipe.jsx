@@ -8,6 +8,7 @@ import { capitalize } from "../helpers/tools"
 import { deleteRcipes } from "../fetch/fetchDelete"
 import Modal from "../components/Modal"
 import { toast } from "sonner"
+import TransitionRecip from "../components/transitions/TransitionRecip"
 
 const Icon = {
   delete: deleteIco
@@ -31,28 +32,30 @@ export default function OneRecipe() {
         go('/wall')
         return 'Se elimino correctamente';
       },
-      error: 'No se pudo borrar',
+      error: 'No se pudo borrar, intentelo nuevamente',
     });
   }
 
   return (
-    <>
+    <TransitionRecip>
       {recip !== null ? (
         <div className={BODY_CONTAINER}>
           <div className={`flex gap-4 ${BORDER_BLACK}`}>
             <Modal show={show} setShow={setShow} name={recip.name} action={() => handlerDelete()} />
-            <img
-              src={recip.imagePath}
-              alt={recip.description}
-              className="max-w-[50%] rounded-tl-lg rounded-tr-gl"
-            />
-            <div className="my-auto p-6 relative">
-              <div className="flex justify-end ">
-                <div
-                  className="px-1 hover:cursor-pointer"
-                  onClick={() => setShow(true)}>
-                  <Icon.delete className='text-blue-800' />
-                </div>
+            <div>
+              <img
+                src={recip.imagePath}
+                alt={recip.description}
+                className="w-full rounded-tl-lg rounded-tr-gl"
+              />
+            </div>
+            <div className="my-auto p-2 pr-10 relative">
+              <div
+                onClick={() => setShow(true)}
+                className="px-1 hover:cursor-pointer flex flex-col items-center absolute right-2 top-2"
+              >
+                <Icon.delete className='text-blue-800' />
+                <span className='text-blue-800 text-xs'>Borrar</span>
               </div>
               <Metric className="-ml-[2px]">{recip.name}</Metric>
               <Title className="font-medium mt-4">{recip.description}</Title>
@@ -90,7 +93,7 @@ export default function OneRecipe() {
         <></>
       )}
 
-    </>
+    </TransitionRecip>
   )
 }
 

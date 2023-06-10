@@ -9,9 +9,6 @@ export const deleteRcipes = async(id,idToken) => {
         method: 'DELETE',
         headers: HEADERS_CONTENT_TYPE
     }
-    const data = await fetch(url, options)
-    const res = await data.json()
-    console.log(res,'---resDELETE')
-    return res
-
+    
+    await fetch(url, options)
 }

@@ -2,23 +2,33 @@ import { Badge, Button, TextInput, Title } from "@tremor/react"
 import { BODY_CONTAINER, BORDER_BLACK } from "../constant/myConstant"
 import { capitalize } from "../helpers/tools"
 import { useNavigate } from "react-router-dom"
-import { useReducer, useRef, useState } from "react"
+import { useEffect, useReducer, useRef, useState } from "react"
 import { ingregdientsReducer } from "../components/reducers/ingregdientsReducer"
-import { back, plus } from "../components/icons"
+import { back, deleteIco, plus } from "../components/icons"
 import { toast } from "sonner"
 import { useGlobalContext } from '../context/GlobalContext'
 import { AddRecipeFetch } from "../fetch/fetchAddRecipe"
 
-const Icon = { plus }
+const Icon = {
+  plus,
+  delete: deleteIco
+}
+
 
 export default function CreateAndEdit() {
   const [stateIngredient, dispatch] = useReducer(ingregdientsReducer, [])
   const [form, setForm] = useState({})
-  /*   const [opacity, setOpacity] = useState()
-   */
+  const [opacity, setOpacity] = useState(false)
   const ingredientsRef = useRef()
   const { userData } = useGlobalContext()
   const go = useNavigate()
+  useEffect(() => {
+    if (form.imagePath) {
+      setOpacity(true)
+    } else {
+      setOpacity(false)
+    }
+  }, [form])
 
   const handlerAddIngredients = () => {
     if (ingredientsRef.current.value !== '') {
@@ -58,7 +68,7 @@ export default function CreateAndEdit() {
   return (
     <div className={BODY_CONTAINER}>
       <div className={`grid md:grid-cols-2 ${BORDER_BLACK}`} >
-        <div className="flex justify-center items-center py-6 md:py-0"
+        <div className="flex justify-center items-center py-6 md:py-0 "
           style={{
             backgroundImage: `url(${form.imagePath ?? form.imagePath})`,
             backgroundSize: 'cover',
@@ -66,14 +76,13 @@ export default function CreateAndEdit() {
             backgroundPosition: 'left center',
           }}
         >
-          <div className="bg-white p-6 rounded-lg" >
+          <div className={`bg-white p-6 rounded-lg ${opacity ? 'bg-opacity-70 ' : 'shadow-xl'}`} >
             <Title className="mb-2">Ingrese la URL de la imagen</Title>
             <TextInput
               placeholder="http://image..."
-              className="w-full opacity-100"
+              className="w-full "
               name="imagePath"
               onChange={handlerAddrecipes}
-              defaultValue="https://images.hola.com/imagenes/cocina/recetas/20220208204252/pizza-pepperoni-mozzarella/1-48-890/pepperoni-pizza-abob-t.jpg"
             />
           </div>
         </div>
@@ -83,28 +92,29 @@ export default function CreateAndEdit() {
               placeholder="Nombre"
               name='name'
               onChange={handlerAddrecipes}
-              defaultValue="Pizza de pepperoni y mozzarella"
+              className="shadow-xl"
             />
             <TextInput
               placeholder="Descripción"
               name='description'
               onChange={handlerAddrecipes}
-              defaultValue="Uno de los ingredientes más famosos en la elaboración de pizzas, el 'pepperoni'."
+              className="shadow-xl"
             />
             <div className="flex gap-2">
               <TextInput
                 placeholder="Agregar ingredientes"
                 onKeyDown={(event) => event.key === 'Enter' ? handlerAddIngredients() : ''}
+                className="shadow-xl"
                 ref={ingredientsRef}
               />
               <Button onClick={handlerAddIngredients}>
                 <Icon.plus />
               </Button>
             </div>
-            <ul>
+            <ul className="flex flex-col">
               {stateIngredient.map((ingredient) => (
                 <Badge key={ingredient.id} className="mr-1 my-2">
-                  <span className="flex  items-center">
+                  <span className="flex items-center">
                     <Icon.delete
                       onClick={() => dispatch({ type: '[INGR] DELETE', payload: ingredient.id })}
                       className='mr-4 hover:cursor-pointer'
