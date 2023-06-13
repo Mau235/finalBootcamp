@@ -6,37 +6,37 @@ import ContSpinner from '../components/spinner/ContSpinner';
 import ContAllDataToWall from '../components/recipes/ContAllDataToWall';
 
 export default function Wall() {
-  const { userData, setAllRecipe } = useGlobalContext()
-  const [data, setData] = useState([])
-  const [look, setLook] = useState(false)
-  const [loading, setLoading] = useState(true)
+  const { userData, setAllRecipe } = useGlobalContext();
+  const [data, setData] = useState(false);
+  const [look, setLook] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handlerStart = async () => {
-    const res = await getWall(userData.idToken)
-    setData(res)
-    setAllRecipe(res)
+    const res = await getWall(userData.idToken);
+    setData(res);
+    setAllRecipe(res);    
     if (res.length === 0) {
-      setLook(false)
+      setLook(false);
     } else {
-      setLook(true)
+      setLook(true);
     }
-    setLoading(false)
-  }
-  useEffect(() => {
-    handlerStart()
-  }, [])
+    setLoading(false);
+  };
 
+  useEffect(() => {
+    handlerStart();
+  }, []);
+  
   return (
     <div className={BODY_CONTAINER}>
       <div className={`${BORDER_BLACK} p-6 mb-6`}>
-        <h1 className='text-3xl font-semibold text-center'>Tus recetas</h1>
+        <h1 className="text-3xl font-semibold text-center">Tus recetas</h1>
       </div>
-      {loading
-        ? <ContSpinner />
-        : <ContAllDataToWall data={data} look={look} />
-      }
-
+      {loading ? (
+        <ContSpinner />
+      ) : (
+        <ContAllDataToWall data={data} look={look} />
+      )}
     </div>
   );
 }
-

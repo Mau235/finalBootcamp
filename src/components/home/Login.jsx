@@ -9,8 +9,8 @@ import { BORDER_BLACK } from '../../constant/myConstant';
 
 export default function Login({ stateWatch }) {
   const [form, setForm] = useState({});
-  const { setUserData } = useGlobalContext()
-  const go = useNavigate()
+  const { setUserData } = useGlobalContext();
+  const go = useNavigate();
 
   const handlerForm = (event) => {
     const { value, name } = event.target;
@@ -24,12 +24,12 @@ export default function Login({ stateWatch }) {
     toast.promise(login(form), {
       loading: 'Ingresando...',
       success: (data) => {
-        setUserData(data)
-        go('/wall')
-        return `${data.email} ingreso correctamente`
+        setUserData(data);
+        go('/wall');
+        return `${data.email} ingreso correctamente`;
       },
       error: 'Hubo un error en el usuario o la contraseña',
-    })
+    });
   };
 
   return (

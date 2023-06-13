@@ -3,11 +3,13 @@ import { UserLog } from "../icons"
 import { Button } from "@tremor/react"
 import { useNavigate } from "react-router-dom"
 import logo from '../../assets/logo.png'
+import { toast } from "sonner"
 export default function Header() {
   const { userData, setUserData } = useGlobalContext()
   const go = useNavigate()
 
   const handlerSession = () => {
+    toast('Hasta luego, vuela pronto! ')
     setUserData({})
     go('/')
   }

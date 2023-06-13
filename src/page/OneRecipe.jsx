@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { BODY_CONTAINER, BORDER_BLACK } from "../constant/myConstant"
+import { BODY_CONTAINER_MD, BORDER_BLACK } from "../constant/myConstant"
 import { Badge, Button, Divider, Metric, Text, Title } from "@tremor/react"
 import { back, plus, deleteIco } from "../components/icons"
 import { useGlobalContext } from "../context/GlobalContext"
@@ -37,19 +37,19 @@ export default function OneRecipe() {
   }
 
   return (
-    <TransitionRecip>
+    <TransitionRecip>     
       {recip !== null ? (
-        <div className={BODY_CONTAINER}>
-          <div className={`flex gap-4 ${BORDER_BLACK}`}>
+        <div className={BODY_CONTAINER_MD}>
+          <div className={`flex ${BORDER_BLACK}`}>
             <Modal show={show} setShow={setShow} name={recip.name} action={() => handlerDelete()} />
             <div>
               <img
                 src={recip.imagePath}
                 alt={recip.description}
-                className="w-full rounded-tl-lg rounded-tr-gl"
+                className="rounded-tl-lg rounded-tr-gl"
               />
             </div>
-            <div className="my-auto p-2 pr-10 relative">
+            <div className="my-auto p-2  relative">
               <div
                 onClick={() => setShow(true)}
                 className="px-1 hover:cursor-pointer flex flex-col items-center absolute right-2 top-2"
@@ -57,7 +57,7 @@ export default function OneRecipe() {
                 <Icon.delete className='text-blue-800' />
                 <span className='text-blue-800 text-xs'>Borrar</span>
               </div>
-              <Metric className="-ml-[2px]">{recip.name}</Metric>
+              <Metric className="-ml-[2px]">{capitalize(recip.name)}</Metric>
               <Title className="font-medium mt-4">{recip.description}</Title>
               <Divider />
               <Text>Productos para preparar la receta de forma correcta</Text>
