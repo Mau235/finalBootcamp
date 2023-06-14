@@ -37,6 +37,7 @@ function App() {
           <Route path="/wall" element={<Wall />} />
           <Route path="/wall/receta/:id" element={<OneRecipe />} />
           <Route path="/wall/crear" element={<CreateAndEdit />} />
+          <Route path="/wall/crear/:id" element={<CreateAndEdit />} />
         </Routes>
       </div>
     </>

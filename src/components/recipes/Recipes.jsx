@@ -23,7 +23,7 @@ export default function Recipes({
         decoration="top"
         decorationColor="gray"
       >
-        <h2 className="mb-4 text-2xl">{capitalize(name)}</h2>
+        <h2 className="mb-4 text-2xl text-center">{capitalize(name)}</h2>
         <div className={st.target}>
           <img
             src={imagePath}

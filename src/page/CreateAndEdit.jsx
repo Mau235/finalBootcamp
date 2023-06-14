@@ -1,7 +1,7 @@
 import { Badge, Button, TextInput, Title } from "@tremor/react"
 import { BODY_CONTAINER, BORDER_BLACK } from "../constant/myConstant"
 import { capitalize } from "../helpers/tools"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useReducer, useRef, useState } from "react"
 import { ingregdientsReducer } from "../components/reducers/ingregdientsReducer"
 import { back, deleteIco, plus } from "../components/icons"
@@ -20,8 +20,18 @@ export default function CreateAndEdit() {
   const [form, setForm] = useState({})
   const [opacity, setOpacity] = useState(false)
   const ingredientsRef = useRef()
-  const { userData } = useGlobalContext()
+  const { userData, getOneRecipe } = useGlobalContext()
   const go = useNavigate()
+  const { id } = useParams()
+
+  useEffect(() => {
+    if (id) {
+      const res = getOneRecipe(id)
+
+    }
+  }, [])
+
+
   useEffect(() => {
     if (form.imagePath) {
       setOpacity(true)
@@ -114,9 +124,11 @@ export default function CreateAndEdit() {
             <ul className="flex flex-col">
               {stateIngredient.map((ingredient) => (
                 <Badge key={ingredient.id} className="mr-1 my-2">
-                  <span className="flex items-center">
+                  <span
+                    className="flex items-center"
+                    onClick={() => dispatch({ type: '[INGR] DELETE', payload: ingredient.id })}
+                  >
                     <Icon.delete
-                      onClick={() => dispatch({ type: '[INGR] DELETE', payload: ingredient.id })}
                       className='mr-4 hover:cursor-pointer'
                     />
                     <span className="text-lg">{capitalize(ingredient.name)}</span>
