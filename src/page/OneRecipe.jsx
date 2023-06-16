@@ -55,8 +55,8 @@ export default function OneRecipe() {
                 onClick={() => setShow(true)}
                 className="px-1 hover:cursor-pointer flex flex-col items-center absolute right-2 top-2 bg-white"
               >
-                <Icon.delete className='text-blue-800' />
-                <span className='text-blue-800 text-xs'>Borrar</span>
+                <Icon.delete className='text-red-800' />
+                <span className='text-red-800 text-xs'>Borrar</span>
               </div>
               <div
                 onClick={() => go(`/wall/crear/${id}`)}

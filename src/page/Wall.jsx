@@ -7,24 +7,25 @@ import ContAllDataToWall from '../components/recipes/ContAllDataToWall';
 
 export default function Wall() {
   const { userData, setAllRecipe } = useGlobalContext();
-  const [data, setData] = useState(false);
+  const [data, setData] = useState([]);
   const [look, setLook] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const handlerStart = async () => {
     const res = await getWall(userData.idToken);
-    setData(res);
-    setAllRecipe(res);    
+  
     if (res.length === 0) {
       setLook(false);
     } else {
       setLook(true);
+      setData(res);
+      setAllRecipe(res);
     }
     setLoading(false);
   };
 
   useEffect(() => {
-    handlerStart();
+    handlerStart();   
   }, []);
   
   return (

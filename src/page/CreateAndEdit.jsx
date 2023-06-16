@@ -8,6 +8,7 @@ import { back, deleteIco, plus } from "../components/icons"
 import { toast } from "sonner"
 import { useGlobalContext } from '../context/GlobalContext'
 import { AddRecipeFetch } from "../fetch/fetchAddRecipe"
+import { EditRecipeFetch } from "../fetch/fetchEdit"
 
 const Icon = {
   plus,
@@ -27,10 +28,37 @@ export default function CreateAndEdit() {
   useEffect(() => {
     if (id) {
       const res = getOneRecipe(id)
-
+      console.log(res)
+      setForm(res)
+      dispatch({
+        type: '[INGR] GETALL',
+        payload: res.ingredients
+      })
     }
   }, [])
 
+  const handlerFetchRecipe = () => {
+    if (id) {
+      console.log(userData)
+      toast.promise(EditRecipeFetch(userData, form, id), {
+        loading: 'Guardando cambios...',
+        success: () => {
+          go('/wall')
+          return 'La modificacion se hizo correctamente'
+        },
+        error: 'Hubo un error al guardar. Intentelo nuevamente',
+      })
+    } else {
+      toast.promise(AddRecipeFetch(userData.idToken, form), {
+        loading: 'Agregando...',
+        success: () => {
+          go('/wall')
+          return 'Se guardo correctamente'
+        },
+        error: 'Hubo un error al guardar. Intentelo nuevamente',
+      })
+    }
+  };
 
   useEffect(() => {
     if (form.imagePath) {
@@ -54,26 +82,23 @@ export default function CreateAndEdit() {
     }
   }
 
+  const handlerBack = () => {
+    if (id) {
+      go(`/wall/receta/${id}`)
+    } else {
+      go(`/wall`)
+    }
+  }
+
   const handlerAddrecipes = (event) => {
     const { value, name } = event.target
     setForm({
       ...form,
       [name]: value,
     });
-    console.log(form, '-----form')
-
   }
 
-  const handlerAddRecipe = () => {
-    toast.promise(AddRecipeFetch(userData.idToken, form), {
-      loading: 'Agregando...',
-      success: () => {
-        go('/wall')
-        return 'Se guardo correctamente'
-      },
-      error: 'Hubo un error al guardar. Intentelo nuevamente',
-    })
-  };
+
 
   return (
     <div className={BODY_CONTAINER}>
@@ -93,6 +118,7 @@ export default function CreateAndEdit() {
               className="w-full "
               name="imagePath"
               onChange={handlerAddrecipes}
+              defaultValue={form.imagePath ?? form.imagePath}
             />
           </div>
         </div>
@@ -103,12 +129,14 @@ export default function CreateAndEdit() {
               name='name'
               onChange={handlerAddrecipes}
               className="shadow-xl"
+              defaultValue={form.name ?? form.name}
             />
             <TextInput
               placeholder="Descripción"
               name='description'
               onChange={handlerAddrecipes}
               className="shadow-xl"
+              defaultValue={form.description ?? form.description}
             />
             <div className="flex gap-2">
               <TextInput
@@ -126,7 +154,7 @@ export default function CreateAndEdit() {
                 <Badge key={ingredient.id} className="mr-1 my-2">
                   <span
                     className="flex items-center"
-                    onClick={() => dispatch({ type: '[INGR] DELETE', payload: ingredient.id })}
+                    onClick={() => dispatch({ type: '[INGR] DELETE', payload: ingredient._id })}
                   >
                     <Icon.delete
                       className='mr-4 hover:cursor-pointer'
@@ -140,7 +168,7 @@ export default function CreateAndEdit() {
               <Button
                 variant='secondary'
                 className="mt-8"
-                onClick={() => go('/wall')}
+                onClick={handlerBack}
                 icon={back}
               >
                 Volver
@@ -149,9 +177,9 @@ export default function CreateAndEdit() {
                 variant='primary'
                 className="mt-8"
                 icon={plus}
-                onClick={handlerAddRecipe}
+                onClick={handlerFetchRecipe}
               >
-                Agregar receta
+                {id ? 'Modificar' : 'Agregar receta'}
               </Button>
             </div>
           </div>
