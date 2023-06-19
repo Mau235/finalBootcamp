@@ -18,7 +18,7 @@ export const AddRecipeFetch = async (idToken, form) => {
     console.log(data,'--data')
 
     if(res.errors){
-        throw new Error('Error')
+        throw new Error(`Error: ${res.errors}`)
     }
 
     return res

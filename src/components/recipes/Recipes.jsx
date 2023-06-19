@@ -3,12 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { capitalize } from '../../helpers/tools';
 import TransitionRecip from '../transitions/TransitionRecip';
 import st from '../../style/recipes.module.css'
+import Favorite from './Favorite';
+
 
 export default function Recipes({
   _id,
   name,
   description,
   imagePath,
+  email
 }) {
   const go = useNavigate()
 
@@ -19,10 +22,11 @@ export default function Recipes({
   return (
     <TransitionRecip>
       <Card
-        className="bg-white rounded-lg min-w-[300px] shadow-2xl"
+        className="bg-white rounded-lg min-w-[300px] shadow-2xl relative"
         decoration="top"
         decorationColor="gray"
       >
+        <Favorite email={email} id={_id} />
         <h2 className="mb-4 text-2xl text-center">{capitalize(name)}</h2>
         <div className={st.target}>
           <img

@@ -9,3 +9,7 @@ export const capitalize = (wo) => {
 
 // crea un id unico 
 export const createId = () => new Date().getTime();
+
+export const saveStart = (id,email) => {
+    
+}

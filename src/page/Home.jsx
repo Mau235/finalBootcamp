@@ -4,6 +4,7 @@ import Register from '../components/home/Register';
 
 export default function Home() {
   const [watch, setWatch] = useState(true);
+  
   return (
     <div className="max-w-xs sm:max-w-md mx-auto pt-8 ">
       {watch ? (

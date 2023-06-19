@@ -22,12 +22,12 @@ export default function Transitions({ children, direction = 'left' }) {
 }
 
 const rightToLeft = {
-  initial: { translateX: 60, skew: 5 },
+  initial: { translateX: 90, skew: 5  },
   animate: { translateX: 0, skew: 0 },
-  transition: { duration: 0.2, ease: 'backOut' },
+  transition: { duration: 1, ease: 'backOut' },
 };
 const leftToRight = {
-  initial: { ...rightToLeft.initial, translateX: -60, skew: -5 },
+  initial: { translateX: -90, skew: -5 },
   animate: { ...rightToLeft.animate },
   transition: { ...rightToLeft.transition },
 };

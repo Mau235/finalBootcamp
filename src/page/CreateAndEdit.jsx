@@ -79,6 +79,7 @@ export default function CreateAndEdit() {
         ingredients: stateIngredient
       })
       ingredientsRef.current.value = ''
+      ingredientsRef.current.focus()
     }
   }
 
@@ -151,7 +152,7 @@ export default function CreateAndEdit() {
             </div>
             <ul className="flex flex-col">
               {stateIngredient.map((ingredient) => (
-                <Badge key={ingredient.id} className="mr-1 my-2">
+                <Badge key={ingredient._id} className="mr-1 my-2">
                   <span
                     className="flex items-center"
                     onClick={() => dispatch({ type: '[INGR] DELETE', payload: ingredient._id })}

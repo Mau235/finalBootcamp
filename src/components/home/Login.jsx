@@ -35,7 +35,10 @@ export default function Login({ stateWatch }) {
   return (
     <Transitions direction="right">
       <div className={`p-8 ${BORDER_BLACK}`}>
-        <Metric className="text-center mb-8">Ingresar</Metric>
+        <Metric className="text-center mb-8">
+          <img src="" alt="" />
+          <span>Ingresar</span>
+        </Metric>
         <div className="grid gap-4">
           <TextInput
             type="email"

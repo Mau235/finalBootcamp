@@ -13,7 +13,6 @@ export const login = async (form) => {
 
     const data = await fetch(url, options)
     const res = await data.json()
-
     if (!res.idToken) {
         throw new Error('No ingreso')
     }
@@ -33,6 +32,7 @@ export const register = async (form) => {
 
     const data = await fetch(url, options)
     const res = await data.json()
+    console.log(res.idToken, '------------TOKENNNNN')
 
     if (!res.idToken) {
         throw new Error('No se pudo registrar el usuario')
