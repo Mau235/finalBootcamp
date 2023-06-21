@@ -76,7 +76,7 @@ export default function OneRecipe() {
                   </Badge>
                 ))}
               </ul>
-              <div className="flex justify-between">
+              <div className="flex justify-between gap-4">
                 <Button
                   variant='secondary'
                   icon={back}

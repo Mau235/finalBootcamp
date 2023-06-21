@@ -9,6 +9,7 @@ import OneRecipe from './page/OneRecipe';
 import CreateAndEdit from './page/CreateAndEdit';
 import { useEffect } from 'react';
 import { useGlobalContext } from './context/GlobalContext';
+import FavoritePage from './page/FavoritePage';
 
 function App() {
   document.title = 'Recetas';
@@ -38,6 +39,7 @@ function App() {
           <Route path="/wall/receta/:id" element={<OneRecipe />} />
           <Route path="/wall/crear" element={<CreateAndEdit />} />
           <Route path="/wall/crear/:id" element={<CreateAndEdit />} />
+          <Route path="/wall/favoritos" element={<FavoritePage />} />
         </Routes>
       </div>
     </>

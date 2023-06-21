@@ -17,6 +17,11 @@ export const EditRecipeFetch = async (userData, form,id) => {
     }
     const data = await fetch(url, options)
     const res = await data.json()
-    console.log(res,'--respueste edit')
+
+    if (data.status === 500) {
+        throw new Error("Error del servidor")
+    }
+
+
     return res
 }

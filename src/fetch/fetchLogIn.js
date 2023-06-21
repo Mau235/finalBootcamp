@@ -1,6 +1,5 @@
 import { HEADERS_CONTENT_TYPE } from "../constant/myConstant"
 
-
 export const login = async (form) => {
 
     const url = 'https://backend-recipes-bootcamps-tribe.onrender.com/api/auth/login'

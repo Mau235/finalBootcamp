@@ -6,19 +6,12 @@ import { toast } from "sonner";
 import { useNavigate } from 'react-router-dom';
 import { useGlobalContext } from "../../context/GlobalContext";
 import { BORDER_BLACK } from "../../constant/myConstant";
+import { useForm } from "../../hooks/useForm";
 
 export default function Register({ stateWatch }) {
-  const [form, setForm] = useState({})
   const go = useNavigate()
   const { setUserData } = useGlobalContext()
-
-  const handlerRegister = (event) => {
-    const { name, value } = event.target
-    setForm({
-      ...form,
-      [name]: value
-    })
-  }
+  const { form, buildForm } = useForm()  
 
   const handlerSubmit = async () => {
     toast.promise(register(form), {
@@ -41,8 +34,8 @@ export default function Register({ stateWatch }) {
         <Metric className="text-center mb-8">Registrarse</Metric>
         <div className="grid gap-4">
           <TextInput placeholder='Nombre completo' />
-          <TextInput placeholder='Email' onChange={handlerRegister} name='email' />
-          <TextInput placeholder='Password' onChange={handlerRegister} name='password' />
+          <TextInput placeholder='Email' onChange={buildForm} name='email' />
+          <TextInput placeholder='Password' onChange={buildForm} name='password' />
           <Button onClick={handlerSubmit}>
             Registrarse
           </Button>

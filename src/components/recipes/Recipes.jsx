@@ -10,8 +10,7 @@ export default function Recipes({
   _id,
   name,
   description,
-  imagePath,
-  email
+  imagePath
 }) {
   const go = useNavigate()
 

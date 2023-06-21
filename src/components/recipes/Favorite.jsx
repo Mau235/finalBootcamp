@@ -32,7 +32,7 @@ export default function Favorite({ id, name }) {
       toast(
         <div className='flex items-center gap-3'>
           <Icon.start />
-          <span>  El producto <span className='font-bold'>{name}</span> fue <span className='text-red-400'>eliminado</span>  </span>
+          <span>  El producto <span className='font-bold'>{name}</span> fue <span className='text-red-400'>eliminado</span> de favoritos</span>
         </div>
       )
     }

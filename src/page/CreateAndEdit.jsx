@@ -9,27 +9,27 @@ import { toast } from "sonner"
 import { useGlobalContext } from '../context/GlobalContext'
 import { AddRecipeFetch } from "../fetch/fetchAddRecipe"
 import { EditRecipeFetch } from "../fetch/fetchEdit"
+import { useForm } from "../hooks/useForm"
 
 const Icon = {
   plus,
   delete: deleteIco
 }
 
-
 export default function CreateAndEdit() {
   const [stateIngredient, dispatch] = useReducer(ingregdientsReducer, [])
-  const [form, setForm] = useState({})
+  /*  const [form, setForm] = useState({}) */
   const [opacity, setOpacity] = useState(false)
   const ingredientsRef = useRef()
   const { userData, getOneRecipe } = useGlobalContext()
   const go = useNavigate()
   const { id } = useParams()
+  const { form, equalForm, buildForm, addIngredient } = useForm()
 
   useEffect(() => {
     if (id) {
       const res = getOneRecipe(id)
-      console.log(res)
-      setForm(res)
+      equalForm(res)
       dispatch({
         type: '[INGR] GETALL',
         payload: res.ingredients
@@ -39,7 +39,6 @@ export default function CreateAndEdit() {
 
   const handlerFetchRecipe = () => {
     if (id) {
-      console.log(userData)
       toast.promise(EditRecipeFetch(userData, form, id), {
         loading: 'Guardando cambios...',
         success: () => {
@@ -74,10 +73,7 @@ export default function CreateAndEdit() {
         type: '[INGR] ADD',
         payload: ingredientsRef.current.value
       })
-      setForm({
-        ...form,
-        ingredients: stateIngredient
-      })
+      addIngredient(stateIngredient)
       ingredientsRef.current.value = ''
       ingredientsRef.current.focus()
     }
@@ -91,13 +87,7 @@ export default function CreateAndEdit() {
     }
   }
 
-  const handlerAddrecipes = (event) => {
-    const { value, name } = event.target
-    setForm({
-      ...form,
-      [name]: value,
-    });
-  }
+
 
 
 
@@ -118,7 +108,7 @@ export default function CreateAndEdit() {
               placeholder="http://image..."
               className="w-full "
               name="imagePath"
-              onChange={handlerAddrecipes}
+              onChange={buildForm}
               defaultValue={form.imagePath ?? form.imagePath}
             />
           </div>
@@ -128,14 +118,14 @@ export default function CreateAndEdit() {
             <TextInput
               placeholder="Nombre"
               name='name'
-              onChange={handlerAddrecipes}
+              onChange={buildForm}
               className="shadow-xl"
               defaultValue={form.name ?? form.name}
             />
             <TextInput
               placeholder="Descripción"
               name='description'
-              onChange={handlerAddrecipes}
+              onChange={buildForm}
               className="shadow-xl"
               defaultValue={form.description ?? form.description}
             />

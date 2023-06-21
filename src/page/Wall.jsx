@@ -7,7 +7,7 @@ import ContAllDataToWall from '../components/recipes/ContAllDataToWall';
 
 export default function Wall() {
   const { userData, setAllRecipe } = useGlobalContext();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
   const [look, setLook] = useState(false);
   const [loading, setLoading] = useState(true);
 

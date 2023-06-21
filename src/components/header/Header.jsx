@@ -4,12 +4,13 @@ import { Button } from "@tremor/react"
 import { useNavigate } from "react-router-dom"
 import logo from '../../assets/logo.png'
 import { toast } from "sonner"
+
 export default function Header() {
   const { userData, setUserData } = useGlobalContext()
   const go = useNavigate()
 
   const handlerSession = () => {
-    toast('Hasta luego, vuela pronto! ')
+    toast('Hasta luego, vuela pronto!')
     setUserData({})
     go('/')
   }
@@ -24,12 +25,26 @@ export default function Header() {
                 <img src={logo} alt="Logo de accenture en blanco" className="w-6" />
               </h1>
               {userData.email ? (
-                <Button
-                  variant="light"
-                  onClick={() => go('/wall/crear')}
-                >
-                  Crear Recetas
-                </Button>
+                <>
+                  <Button
+                    variant="light"
+                    onClick={() => go('/wall/crear')}
+                  >
+                    Crear Recetas
+                  </Button>
+                  <Button
+                    variant="light"
+                    onClick={() => go('/wall/favoritos')}
+                  >
+                    Favoritos
+                  </Button>
+                  <Button
+                    variant="light"
+                    onClick={() => go('/wall/carrrito')}
+                  >
+                    Carrito
+                  </Button>
+                </>
               ) :
                 <>
                 </>
