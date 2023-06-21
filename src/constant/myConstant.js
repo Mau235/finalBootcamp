@@ -10,3 +10,5 @@ export const HEADERS_CONTENT_TYPE = {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*'
 }
+
+export const LOCAL_FAVORITE = 'myFavorite'

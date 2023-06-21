@@ -26,7 +26,7 @@ export default function Recipes({
         decoration="top"
         decorationColor="gray"
       >
-        <Favorite email={email} id={_id} />
+        <Favorite id={_id} />
         <h2 className="mb-4 text-2xl text-center">{capitalize(name)}</h2>
         <div className={st.target}>
           <img

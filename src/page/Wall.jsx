@@ -11,23 +11,20 @@ export default function Wall() {
   const [look, setLook] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const handlerStart = async () => {
+    const res = await getWall(userData.idToken);
+    if (res.length === 0 || res === 'Invalid token') {
+      setLook(false);
+    } else {
+      setLook(true);
+      setData(res);
+      setAllRecipe(res);
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
-
-    const handlerStart = async () => {
-      const res = await getWall(userData.idToken);
-
-      if (res.length === 0 || res === "Invalid token") {
-        setLook(false);
-      } else {
-        setLook(true);
-        setData(res);
-        setAllRecipe(res);
-      }
-      setLoading(false);
-    };
     handlerStart();
-
   }, []);
 
   return (
