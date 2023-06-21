@@ -25,6 +25,7 @@ export default function Register({ stateWatch }) {
       loading: 'Registrando...',
       success: (data) => {
         setUserData(data)
+        console.log(data,'---data')
         go('/wall')
         return `${data.email} registro correctamente`
       },

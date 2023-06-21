@@ -7,8 +7,7 @@ export const BORDER_BLACK = 'bg-white rounded-lg border-2 border-black bg-opacit
 
 
 export const HEADERS_CONTENT_TYPE = {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'
+    'Content-Type': 'application/json'
 }
 
 export const LOCAL_FAVORITE = 'myFavorite'

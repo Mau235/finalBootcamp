@@ -26,6 +26,7 @@
 }
 .target:hover{
     cursor: pointer;
+    transition: all .2s ease-in-out;
 }
 .target:hover .greyOpacity {
     background: rgba(121, 121, 121, .5);
