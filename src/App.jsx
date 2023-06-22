@@ -1,15 +1,16 @@
-import Header from './components/header/Header';
+import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Home from './page/Home';
 import { Toaster } from 'sonner';
+import { useGlobalContext } from './context/GlobalContext';
+import { MIN_SCREEN } from './constant/myConstant';
+import Header from './components/header/Header';
+import Home from './page/Home';
 import Wall from './page/Wall';
 import img from './assets/mainBack.jpg';
-import { MIN_SCREEN } from './constant/myConstant';
 import OneRecipe from './page/OneRecipe';
 import CreateAndEdit from './page/CreateAndEdit';
-import { useEffect } from 'react';
-import { useGlobalContext } from './context/GlobalContext';
 import FavoritePage from './page/FavoritePage';
+import BuyPage from './page/BuyPage'
 
 function App() {
   document.title = 'Recetas';
@@ -40,6 +41,7 @@ function App() {
           <Route path="/wall/crear" element={<CreateAndEdit />} />
           <Route path="/wall/crear/:id" element={<CreateAndEdit />} />
           <Route path="/wall/favoritos" element={<FavoritePage />} />
+          <Route path="/wall/carrito" element={<BuyPage />} />
         </Routes>
       </div>
     </>

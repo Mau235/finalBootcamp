@@ -28,19 +28,25 @@ export default function Header() {
                 <>
                   <Button
                     variant="light"
+                    onClick={() => go('/wall')}
+                  >
+                    Wall
+                  </Button>
+                  <Button
+                    variant="light"
                     onClick={() => go('/wall/crear')}
                   >
                     Crear Recetas
                   </Button>
-                  <Button
+                  {/* <Button
                     variant="light"
                     onClick={() => go('/wall/favoritos')}
                   >
                     Favoritos
-                  </Button>
+                  </Button> */}
                   <Button
                     variant="light"
-                    onClick={() => go('/wall/carrrito')}
+                    onClick={() => go('/wall/carrito')}
                   >
                     Carrito
                   </Button>

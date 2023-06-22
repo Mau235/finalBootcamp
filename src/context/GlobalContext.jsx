@@ -7,6 +7,7 @@ export const GlobalContext = ({ children }) => {
   const [userData, setUserData] = useState({})
   const [allRecipe, setAllRecipe] = useState([])
   const [favorite, setFavorite] = useState([])
+  const [buyProduct, setBuyProduct] = useState([])
 
   const getOneRecipe = (id) => {
     return allRecipe.find(recipe => recipe._id === id)
@@ -17,16 +18,23 @@ export const GlobalContext = ({ children }) => {
     for (let i = 0; i < allRecipe.length; i++) {
       /* if (local[i] === allRecipe[i]._id) { */
       const obj = local.find(loc => loc === allRecipe[i]._id)
+      console.log(obj,[i],'-----obj')
       setFavorite([
         ...favorite,
         obj
       ])
-
     }
     console.log(favorite, '------favorite')
     return favorite
   }
 
+  const addBuyProduct = (recip) => {
+    setBuyProduct([
+      ...buyProduct,
+      recip
+    ])
+   // console.log(buyProduct,'--------buyProduct')
+  }
 
   return (
     <DataContext.Provider
@@ -35,7 +43,9 @@ export const GlobalContext = ({ children }) => {
         userData,
         setAllRecipe,
         getOneRecipe,
-        getFavorite
+        getFavorite,
+        addBuyProduct,
+        buyProduct
       }}
     >
       {children}

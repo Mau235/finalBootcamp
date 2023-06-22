@@ -16,7 +16,7 @@ const Icon = {
 }
 
 export default function OneRecipe() {
-  const { getOneRecipe, userData } = useGlobalContext()
+  const { getOneRecipe, userData, addBuyProduct } = useGlobalContext()
   const { id } = useParams()
   const go = useNavigate()
   const [recip, setRecip] = useState(null)
@@ -35,6 +35,11 @@ export default function OneRecipe() {
       },
       error: 'No se pudo borrar, intentelo nuevamente',
     });
+  }
+
+  const hanlerAddProducts = () => {
+    addBuyProduct(recip)
+    toast.success('Se agregaron los productos al carrito')
   }
 
   return (
@@ -89,6 +94,7 @@ export default function OneRecipe() {
                   variant='primary'
                   icon={plus}
                   className="mt-8"
+                  onClick={hanlerAddProducts}
                 >
                   Agregar productos
                 </Button>
