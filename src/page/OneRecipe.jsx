@@ -39,7 +39,12 @@ export default function OneRecipe() {
 
   const hanlerAddProducts = () => {
     addBuyProduct(recip)
-    toast.success('Se agregaron los productos al carrito')
+    toast('Se agregaron los productos al carrito', {
+      action: {
+        label: 'Ver carrito',
+        onClick: () => go('/wall/carrito')
+      },
+    })
   }
 
   return (

@@ -38,12 +38,12 @@ export default function Header() {
                   >
                     Crear Recetas
                   </Button>
-                  {/* <Button
+                   <Button
                     variant="light"
                     onClick={() => go('/wall/favoritos')}
                   >
                     Favoritos
-                  </Button> */}
+                  </Button> 
                   <Button
                     variant="light"
                     onClick={() => go('/wall/carrito')}
@@ -57,7 +57,7 @@ export default function Header() {
               }
             </div>
             <div>
-              {userData.email ? (
+             {/*  {userData.email ? ( */}
                 <div className="flex gap-4 items-center">
                   <div className="flex gap-1">
                     <UserLog />
@@ -69,10 +69,10 @@ export default function Header() {
                   >
                     Cerrar sesion</Button>
                 </div>
-              ) :
+             {/*  ) :
                 <>
                 </>
-              }
+              } */}
 
             </div>
           </div>

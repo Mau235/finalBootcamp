@@ -15,16 +15,15 @@ export const GlobalContext = ({ children }) => {
 
   const getFavorite = () => {
     const local = JSON.parse(localStorage.getItem(LOCAL_FAVORITE));
+
     for (let i = 0; i < allRecipe.length; i++) {
-      /* if (local[i] === allRecipe[i]._id) { */
       const obj = local.find(loc => loc === allRecipe[i]._id)
-      console.log(obj,[i],'-----obj')
       setFavorite([
         ...favorite,
         obj
       ])
     }
-    console.log(favorite, '------favorite')
+
     return favorite
   }
 
