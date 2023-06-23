@@ -1,7 +1,7 @@
 import { useContext, createContext, useState } from "react";
 import { LOCAL_FAVORITE } from "../constant/myConstant";
 
-const DataContext = createContext()
+export const DataContext = createContext()
 
 export const GlobalContext = ({ children }) => {
   const [userData, setUserData] = useState({})
@@ -33,7 +33,6 @@ export const GlobalContext = ({ children }) => {
       ...buyProduct,
       recip
     ])
-   // console.log(buyProduct,'--------buyProduct')
   }
 
   return (

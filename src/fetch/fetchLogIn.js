@@ -1,8 +1,8 @@
 import { HEADERS_CONTENT_TYPE } from "../constant/myConstant"
 
-export const login = async (form) => {
+const urlLogIn = 'https://backend-recipes-bootcamps-tribe.onrender.com/api/auth/login'
 
-    const url = 'https://backend-recipes-bootcamps-tribe.onrender.com/api/auth/login'
+export const login = async (form) => {
 
     const options = {
         method: 'POST',
@@ -10,7 +10,7 @@ export const login = async (form) => {
         body: JSON.stringify(form)
     }
 
-    const data = await fetch(url, options)
+    const data = await fetch(urlLogIn, options)
     const res = await data.json()
     if (!res.idToken) {
         throw new Error('No ingreso')
@@ -18,9 +18,9 @@ export const login = async (form) => {
     return res
 }
 
-export const register = async (form) => {
+const urlRegister = 'https://backend-recipes-bootcamps-tribe.onrender.com/api/auth/signup'
 
-    const url = 'https://backend-recipes-bootcamps-tribe.onrender.com/api/auth/signup'
+export const register = async (form) => {
 
     const options = {
         method: 'POST',
@@ -28,11 +28,17 @@ export const register = async (form) => {
         body: JSON.stringify(form)
     }
 
-    const data = await fetch(url, options)
+    const data = await fetch(urlRegister, options)
     const res = await data.json()
 
-    if (!res.idToken) {
+    const dataLogIn = await fetch(urlLogIn, options)
+    const resLogIn = await dataLogIn.json()
+
+    if (!resLogIn.idToken) {
         throw new Error('No se pudo registrar el usuario')
     }
-    return res
+
+    return resLogIn
+    
+
 }
