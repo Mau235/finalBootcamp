@@ -13,10 +13,10 @@ export default function Favorite({ id, name }) {
 
     if (!isFavorite) {
       if (localStorage.getItem(LOCAL_FAVORITE)) {
-        const obj = [...local, id];
-        localStorage.setItem(LOCAL_FAVORITE, JSON.stringify(obj));
+          const obj = [...local, id];
+          localStorage.setItem(LOCAL_FAVORITE, JSON.stringify(obj));
       } else {
-        localStorage.setItem(LOCAL_FAVORITE, JSON.stringify([id]));
+          localStorage.setItem(LOCAL_FAVORITE, JSON.stringify([id]));
       }
       setIsFavorite(true);
       toast(

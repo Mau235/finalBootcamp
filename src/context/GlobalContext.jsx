@@ -1,38 +1,34 @@
-import { useContext, createContext, useState } from "react";
-import { LOCAL_FAVORITE } from "../constant/myConstant";
+import { useContext, createContext, useState } from 'react';
+import { LOCAL_FAVORITE } from '../constant/myConstant';
 
-export const DataContext = createContext()
+const DataContext = createContext();
 
 export const GlobalContext = ({ children }) => {
-  const [userData, setUserData] = useState({})
-  const [allRecipe, setAllRecipe] = useState([])
-  const [favorite, setFavorite] = useState([])
-  const [buyProduct, setBuyProduct] = useState([])
+  const [userData, setUserData] = useState({});
+  const [allRecipe, setAllRecipe] = useState([]);
+  const [buyProduct, setBuyProduct] = useState([]);
 
   const getOneRecipe = (id) => {
-    return allRecipe.find(recipe => recipe._id === id)
-  }
+    return allRecipe.find((recipe) => recipe._id === id);
+  };
 
   const getFavorite = () => {
     const local = JSON.parse(localStorage.getItem(LOCAL_FAVORITE));
 
+    let obj = [];
     for (let i = 0; i < allRecipe.length; i++) {
-      const obj = local.find(loc => loc === allRecipe[i]._id)
-      setFavorite([
-        ...favorite,
-        obj
-      ])
+      /* if(allRecipe[i]._id === ) */
+      if (local.find((loc) => loc === allRecipe[i]._id)) {
+        obj.push(allRecipe[i]);
+      }
     }
 
-    return favorite
-  }
+    return obj;
+  };
 
   const addBuyProduct = (recip) => {
-    setBuyProduct([
-      ...buyProduct,
-      recip
-    ])
-  }
+    setBuyProduct([...buyProduct, recip]);
+  };
 
   return (
     <DataContext.Provider
@@ -43,14 +39,14 @@ export const GlobalContext = ({ children }) => {
         getOneRecipe,
         getFavorite,
         addBuyProduct,
-        buyProduct
+        buyProduct,
       }}
     >
       {children}
     </DataContext.Provider>
-  )
-}
+  );
+};
 
 export const useGlobalContext = () => {
-  return useContext(DataContext)
-}
+  return useContext(DataContext);
+};
