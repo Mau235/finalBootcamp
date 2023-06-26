@@ -1,17 +1,9 @@
 import { useEffect, useState } from 'react';
 import { BODY_CONTAINER, BORDER_BLACK } from '../constant/myConstant';
 import { useGlobalContext } from '../context/GlobalContext';
-import {
-  Badge,
-  Card,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeaderCell,
-  TableRow,
-} from '@tremor/react';
 import { showArrBuy } from '../helpers/tools';
+import NoRecipesBuy from '../components/buy/NoRecipesBuy';
+import TableOfIngredient from '../components/buy/TableOfIngredient';
 
 export default function FavoritePage() {
   const [data, setData] = useState([]);
@@ -29,29 +21,10 @@ export default function FavoritePage() {
             Carrito de compras
           </h1>
         </div>
-        {data.length > 0 && (
-          <Card className="bg-white rounded-lg border-2 border-black">
-            <Table className="mt-5">
-              <TableHead>
-                <TableRow className="font-bold text-base text-black">
-                  <TableHeaderCell>Receta</TableHeaderCell>
-                  <TableHeaderCell>Ingredientes</TableHeaderCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data.map((item) => (
-                  <TableRow key={item.name}>
-                    <TableCell>{item.name}</TableCell>
-                    <TableCell>
-                      <Badge>
-                        <span className="text-lg">{item.ingredients}</span>
-                      </Badge>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </Card>
+        {data.length > 0 ? (
+          <TableOfIngredient data={data}/>
+        ):(
+          <NoRecipesBuy />
         )}
       </div>
     </>

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Button, Metric, TextInput } from '@tremor/react';
 import Transitions from '../transitions/Transitions';
 import { login } from '../../fetch/fetchLogIn';
@@ -6,13 +7,21 @@ import { useNavigate } from 'react-router-dom';
 import { useGlobalContext } from '../../context/GlobalContext';
 import { BORDER_BLACK } from '../../constant/myConstant';
 import { useForm } from '../../hooks/useForm';
+import { logInVaid } from '../../helpers/validators';
 
 export default function Login({ stateWatch }) {
+  const [disa, setDisa] = useState(false);
   const { setUserData } = useGlobalContext();
   const go = useNavigate();
-  const { form, buildForm } = useForm()
-
+  const { form, buildForm } = useForm();
+  const [error, setError] = useState({
+    email: false,
+    password: false,
+  });
   const handlerSubmit = async () => {
+    const { resp, objError } = logInVaid(form);
+    //--.----
+    setDisa(true);
     toast.promise(login(form), {
       loading: 'Ingresando...',
       success: (data) => {
@@ -20,7 +29,10 @@ export default function Login({ stateWatch }) {
         go('/wall');
         return `${data.email} ingreso correctamente`;
       },
-      error: 'Hubo un error en el usuario o la contraseña',
+      error: () => {
+        setDisa(false);
+        return 'Hubo un error en el usuario o la contraseña';
+      },
     });
   };
 
@@ -36,14 +48,22 @@ export default function Login({ stateWatch }) {
             placeholder="Email"
             name="email"
             onChange={buildForm}
+            error={error.email}
           />
           <TextInput
             placeholder="Password"
             name="password"
             onChange={buildForm}
+            error={error.password}
           />
-          <Button onClick={handlerSubmit}>Ingesar</Button>
-          <Button variant="light" onClick={() => stateWatch(false)}>
+          <Button onClick={handlerSubmit} disabled={disa}>
+            Ingesar
+          </Button>
+          <Button
+            variant="light"
+            disabled={disa}
+            onClick={() => stateWatch(false)}
+          >
             Registrarse
           </Button>
         </div>

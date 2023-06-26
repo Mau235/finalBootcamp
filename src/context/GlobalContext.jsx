@@ -17,7 +17,6 @@ export const GlobalContext = ({ children }) => {
 
     let obj = [];
     for (let i = 0; i < allRecipe.length; i++) {
-      /* if(allRecipe[i]._id === ) */
       if (local.find((loc) => loc === allRecipe[i]._id)) {
         obj.push(allRecipe[i]);
       }
