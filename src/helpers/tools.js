@@ -17,3 +17,14 @@ export const showArrBuy = (arr) => {
   }
   return obj;
 };
+
+export const getErrorMsg = (res) => {
+
+  if(res.errors[0].param === 'email'){
+    return {msg:'Hubo un error en el usuario o la contraseña'}
+  }
+  if(res.errors[0].param === 'password'){      
+      return {msg:'La contraseña tiene que tener mas de 6 digitos'}
+  }
+
+}

@@ -1,14 +1,14 @@
-export const logInVaid = (form) => {
-  let resp = '';
-  const objError = {
-    email: false,
-    password: false,
-  };
-  if (form.email === '') {
-    resp.email= 'ingrese'
-  }
-  return {
-    resp,
-    objError,
-  };
+export const logInVaid = (errors) => { 
+  const res = ''
+  errors.map(error => {
+    if(error.param === 'email'){
+      res= 'Escriba un mail'
+    }
+    if(error.param === 'password'){
+      res= 'Escriba un password'
+    }
+  })
+
+  
+ 
 };

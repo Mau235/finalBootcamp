@@ -1,9 +1,10 @@
 import { HEADERS_CONTENT_TYPE } from "../constant/myConstant"
+import { logInVaid } from "../helpers/validators"
 
 const urlLogIn = 'https://backend-recipes-bootcamps-tribe.onrender.com/api/auth/login'
 
 export const login = async (form) => {
-
+   
     const options = {
         method: 'POST',
         headers: HEADERS_CONTENT_TYPE,
@@ -12,9 +13,13 @@ export const login = async (form) => {
 
     const data = await fetch(urlLogIn, options)
     const res = await data.json()
-    if (!res.idToken) {
-        throw new Error('No ingreso')
+    
+    if(res.errors){     
+        getErrorMsg(res)
+        throw new Error('Hubo un error')   
+       
     }
+    
     return res
 }
 
@@ -28,8 +33,7 @@ export const register = async (form) => {
         body: JSON.stringify(form)
     }
 
-    const data = await fetch(urlRegister, options)
-    const res = await data.json()
+    await fetch(urlRegister, options)
 
     const dataLogIn = await fetch(urlLogIn, options)
     const resLogIn = await dataLogIn.json()

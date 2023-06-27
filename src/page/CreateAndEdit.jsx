@@ -93,6 +93,11 @@ export default function CreateAndEdit() {
 
   return (
     <div className={BODY_CONTAINER}>
+      <div className={`${BORDER_BLACK} p-6 mb-6`}>
+          <h1 className="text-3xl font-semibold text-center">
+           {id ? 'Editar receta' : 'Crear receta'}
+          </h1>
+        </div>
       <div className={`grid md:grid-cols-2 ${BORDER_BLACK}`} >
         <div className="flex justify-center items-center py-6 md:py-0 "
           style={{

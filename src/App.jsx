@@ -23,7 +23,11 @@ function App() {
   }, []);
   return (
     <>
-      <Toaster richColors position="bottom-right" />
+      <Toaster
+        position="bottom-center"
+        expand={true}
+        richColors
+      />
       <Header />
       <div
         style={{

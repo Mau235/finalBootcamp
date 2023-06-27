@@ -9,23 +9,25 @@ import { BORDER_BLACK } from "../../constant/myConstant";
 import { useForm } from "../../hooks/useForm";
 
 export default function Register({ stateWatch }) {
-  const go = useNavigate()
+  const [disa, setDisa] = useState(false);
   const { setUserData } = useGlobalContext()
-  const { form, buildForm } = useForm()  
+  const go = useNavigate()
+  const { form, buildForm } = useForm()
 
   const handlerSubmit = async () => {
+    setDisa(true);
     toast.promise(register(form), {
       loading: 'Registrando...',
       success: (data) => {
         setUserData(data)
-        console.log(data,'---data')
         go('/wall')
         return `${data.email} registro correctamente`
       },
       error: (err) => {
-        return `Hubo un error al crear un usuario (${err}`
+        setDisa(false);
+        return `Hubo un error al crear un usuario :${err}`
       }
-    })   
+    })
   }
 
   return (
@@ -36,10 +38,10 @@ export default function Register({ stateWatch }) {
           <TextInput placeholder='Nombre completo' />
           <TextInput placeholder='Email' onChange={buildForm} name='email' />
           <TextInput placeholder='Password' onChange={buildForm} name='password' />
-          <Button onClick={handlerSubmit}>
+          <Button onClick={handlerSubmit} disabled={disa}>
             Registrarse
           </Button>
-          <Button variant="light" onClick={() => stateWatch(true)}>
+          <Button variant="light" onClick={() => stateWatch(true)} disabled={disa}>
             Ya tengo cuenta
           </Button>
         </div>

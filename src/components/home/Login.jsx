@@ -19,9 +19,8 @@ export default function Login({ stateWatch }) {
     password: false,
   });
   const handlerSubmit = async () => {
-    const { resp, objError } = logInVaid(form);
-    //--.----
     setDisa(true);
+
     toast.promise(login(form), {
       loading: 'Ingresando...',
       success: (data) => {
@@ -29,9 +28,9 @@ export default function Login({ stateWatch }) {
         go('/wall');
         return `${data.email} ingreso correctamente`;
       },
-      error: () => {
-        setDisa(false);
-        return 'Hubo un error en el usuario o la contraseña';
+      error: (err) => {
+        const { msg } = getErrorMsg()
+        return msg
       },
     });
   };
@@ -51,7 +50,7 @@ export default function Login({ stateWatch }) {
             error={error.email}
           />
           <TextInput
-            placeholder="Password"
+            placeholder="Contraseña"
             name="password"
             onChange={buildForm}
             error={error.password}
