@@ -1,14 +1,14 @@
-export const logInVaid = (errors) => { 
-  const res = ''
-  errors.map(error => {
-    if(error.param === 'email'){
-      res= 'Escriba un mail'
-    }
-    if(error.param === 'password'){
-      res= 'Escriba un password'
-    }
-  })
+let msg = '';
 
-  
- 
+export const getErrorMsg = () => {
+  return msg;
+};
+
+export const setErrorMsgLog = (res) => {
+  if (res.errors) {
+    msg = 'Hubo un error en el usuario o la contraseña';
+  }
+  if (res.error.message) {
+    msg = 'El usuario o la contraseña no son validos';
+  }
 };

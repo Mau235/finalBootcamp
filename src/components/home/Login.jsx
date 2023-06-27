@@ -7,20 +7,17 @@ import { useNavigate } from 'react-router-dom';
 import { useGlobalContext } from '../../context/GlobalContext';
 import { BORDER_BLACK } from '../../constant/myConstant';
 import { useForm } from '../../hooks/useForm';
-import { logInVaid } from '../../helpers/validators';
+import { getErrorMsg } from '../../helpers/validators';
 
 export default function Login({ stateWatch }) {
   const [disa, setDisa] = useState(false);
   const { setUserData } = useGlobalContext();
   const go = useNavigate();
   const { form, buildForm } = useForm();
-  const [error, setError] = useState({
-    email: false,
-    password: false,
-  });
+  const [error, setError] = useState(false);
+
   const handlerSubmit = async () => {
     setDisa(true);
-
     toast.promise(login(form), {
       loading: 'Ingresando...',
       success: (data) => {
@@ -28,9 +25,9 @@ export default function Login({ stateWatch }) {
         go('/wall');
         return `${data.email} ingreso correctamente`;
       },
-      error: (err) => {
-        const { msg } = getErrorMsg()
-        return msg
+      error: () => {
+        setDisa(false);
+        return getErrorMsg();
       },
     });
   };
@@ -47,13 +44,13 @@ export default function Login({ stateWatch }) {
             placeholder="Email"
             name="email"
             onChange={buildForm}
-            error={error.email}
+            error={error}
           />
           <TextInput
             placeholder="Contraseña"
             name="password"
             onChange={buildForm}
-            error={error.password}
+            error={error}
           />
           <Button onClick={handlerSubmit} disabled={disa}>
             Ingesar
