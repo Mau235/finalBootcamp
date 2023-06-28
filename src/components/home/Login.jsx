@@ -12,9 +12,8 @@ import { getErrorMsg } from '../../helpers/validators';
 export default function Login({ stateWatch }) {
   const [disa, setDisa] = useState(false);
   const { setUserData } = useGlobalContext();
-  const go = useNavigate();
   const { form, buildForm } = useForm();
-  const [error, setError] = useState(false);
+  const go = useNavigate();
 
   const handlerSubmit = async () => {
     setDisa(true);
@@ -44,13 +43,11 @@ export default function Login({ stateWatch }) {
             placeholder="Email"
             name="email"
             onChange={buildForm}
-            error={error}
           />
           <TextInput
             placeholder="Contraseña"
             name="password"
             onChange={buildForm}
-            error={error}
           />
           <Button onClick={handlerSubmit} disabled={disa}>
             Ingesar
