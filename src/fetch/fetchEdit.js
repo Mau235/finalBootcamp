@@ -1,4 +1,5 @@
 import { HEADERS_CONTENT_TYPE } from "../constant/myConstant"
+import { setErrorMsgCreatAndEdit } from "../helpers/validators"
 
 export const EditRecipeFetch = async (userData, form,id) => {    
     
@@ -19,7 +20,14 @@ export const EditRecipeFetch = async (userData, form,id) => {
     const res = await data.json()
 
     if (data.status === 500) {
+        res.server = "Hubo un error al guardar, Intenta nuevamente"
+        setErrorMsgCreatAndEdit(res)
         throw new Error("Error del servidor")
+    }
+
+    if(res.errors){
+        setErrorMsgCreatAndEdit(res)
+        throw new Error('Hubo un error')
     }
 
 

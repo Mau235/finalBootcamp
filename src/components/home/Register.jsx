@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useGlobalContext } from "../../context/GlobalContext";
 import { BORDER_BLACK } from "../../constant/myConstant";
 import { useForm } from "../../hooks/useForm";
+import { getErrorMsg } from "../../helpers/validators";
 
 export default function Register({ stateWatch }) {
   const [disa, setDisa] = useState(false);
@@ -25,7 +26,7 @@ export default function Register({ stateWatch }) {
       },
       error: (err) => {
         setDisa(false);
-        return `Hubo un error al crear un usuario :${err}`
+        return getErrorMsg()
       }
     })
   }

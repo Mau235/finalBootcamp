@@ -10,6 +10,7 @@ import { useGlobalContext } from '../context/GlobalContext'
 import { AddRecipeFetch } from "../fetch/fetchAddRecipe"
 import { EditRecipeFetch } from "../fetch/fetchEdit"
 import { useForm } from "../hooks/useForm"
+import { getErrorMsg } from "../helpers/validators"
 
 const Icon = {
   plus,
@@ -18,7 +19,6 @@ const Icon = {
 
 export default function CreateAndEdit() {
   const [stateIngredient, dispatch] = useReducer(ingregdientsReducer, [])
-  /*  const [form, setForm] = useState({}) */
   const [opacity, setOpacity] = useState(false)
   const ingredientsRef = useRef()
   const { userData, getOneRecipe } = useGlobalContext()
@@ -45,7 +45,7 @@ export default function CreateAndEdit() {
           go('/wall')
           return 'La modificacion se hizo correctamente'
         },
-        error: 'Hubo un error al guardar. Intentelo nuevamente',
+        error: getErrorMsg(),
       })
     } else {
       toast.promise(AddRecipeFetch(userData.idToken, form), {
@@ -54,7 +54,7 @@ export default function CreateAndEdit() {
           go('/wall')
           return 'Se guardo correctamente'
         },
-        error: 'Hubo un error al guardar. Intentelo nuevamente',
+        error: getErrorMsg(),
       })
     }
   };
@@ -73,7 +73,7 @@ export default function CreateAndEdit() {
         type: '[INGR] ADD',
         payload: ingredientsRef.current.value
       })
-      addIngredient(stateIngredient)
+      addIngredient(ingredientsRef.current.value)
       ingredientsRef.current.value = ''
       ingredientsRef.current.focus()
     }
@@ -87,17 +87,13 @@ export default function CreateAndEdit() {
     }
   }
 
-
-
-
-
   return (
     <div className={BODY_CONTAINER}>
       <div className={`${BORDER_BLACK} p-6 mb-6`}>
-          <h1 className="text-3xl font-semibold text-center">
-           {id ? 'Editar receta' : 'Crear receta'}
-          </h1>
-        </div>
+        <h1 className="text-3xl font-semibold text-center">
+          {id ? 'Editar receta' : 'Crear receta'}
+        </h1>
+      </div>
       <div className={`grid md:grid-cols-2 ${BORDER_BLACK}`} >
         <div className="flex justify-center items-center py-6 md:py-0 "
           style={{
@@ -180,9 +176,7 @@ export default function CreateAndEdit() {
             </div>
           </div>
         </div>
-
       </div>
     </div>
-
   )
 }

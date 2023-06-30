@@ -82,7 +82,7 @@ export default function OneRecipe() {
               <ul>
                 {recip.ingredients.map((ingredient) => (
                   <Badge key={ingredient.name} className="mr-1 my-1">
-                    <span className="text-lg">{capitalize(ingredient.name)}</span>
+                    <span className="text-lg">{capitalize(ingredient?.name)}</span>
                   </Badge>
                 ))}
               </ul>

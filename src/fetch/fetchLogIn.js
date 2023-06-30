@@ -1,10 +1,11 @@
 import { HEADERS_CONTENT_TYPE } from '../constant/myConstant';
-import { setErrorMsgLog } from '../helpers/validators';
+import { setErrorMsgLog, setErrorMsgRegister } from '../helpers/validators';
 
 const urlLogIn =
   'https://backend-recipes-bootcamps-tribe.onrender.com/api/auth/login';
 
 export const login = async (form) => {
+  
   const options = {
     method: 'POST',
     headers: HEADERS_CONTENT_TYPE,
@@ -32,12 +33,20 @@ export const register = async (form) => {
     body: JSON.stringify(form),
   };
 
-  await fetch(urlRegister, options);
+  const data = await fetch(urlRegister, options);
+  const res = await data.json()
 
+  if (!res.idToken || res.errors) {
+    setErrorMsgRegister(res)
+    throw new Error('No se pudo registrar el usuario');
+  }
   const dataLogIn = await fetch(urlLogIn, options);
   const resLogIn = await dataLogIn.json();
 
+  res.noLogIn = ""
+
   if (!resLogIn.idToken) {
+    setErrorMsgRegister(res)
     throw new Error('No se pudo registrar el usuario');
   }
 
