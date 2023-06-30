@@ -9,10 +9,8 @@ export const getWall = async (idToken) => {
         method: 'GET',
         headers: HEADERS_CONTENT_TYPE
     }
+    
     const data = await fetch(url, options)
-
-
-
     const res = await data.json()
 
     return res

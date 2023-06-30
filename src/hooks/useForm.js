@@ -15,14 +15,18 @@ export const useForm = () => {
     const equalForm = (res) => setForm(res)
 
     const addIngredient = (ingr) =>{
+      console.log(ingredients,'----ingredients anterior ')
+
         setIngredients([
             ...ingredients,
-            { name:ingr }
+            { name: ingr }
           ])
+
         setForm({
             ...form,
             ingredients: ingredients
           })
+
       console.log(form, '-----form')
       console.log(ingredients, '-----ingredients')
 

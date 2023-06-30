@@ -2,7 +2,7 @@ import { login } from "../../../src/fetch/fetchLogIn"
 
 describe('Pruebas en fetchLogin.js',()=>{
 
-    test('Debe responder el logIn con exito al darle un usuario correcto', async()=>{
+    test('Debe responder con exito el logIn, al darle un usuario correcto', async()=>{
 
         const user = {
             email:'mau@gmail.com',

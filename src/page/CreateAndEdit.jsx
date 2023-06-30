@@ -69,11 +69,13 @@ export default function CreateAndEdit() {
 
   const handlerAddIngredients = () => {
     if (ingredientsRef.current.value !== '') {
+      console.log(ingredientsRef.current.value, '---ingredientsRef.current.value')
       dispatch({
         type: '[INGR] ADD',
         payload: ingredientsRef.current.value
       })
       addIngredient(ingredientsRef.current.value)
+      console.log(form, '---form postrerior')
       ingredientsRef.current.value = ''
       ingredientsRef.current.focus()
     }
