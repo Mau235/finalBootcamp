@@ -47,10 +47,11 @@ export default function Login({ stateWatch }) {
           <TextInput
             placeholder="Contraseña"
             name="password"
+           /*  type="password" */
             onChange={buildForm}
           />
           <Button onClick={handlerSubmit} disabled={disa}>
-            Ingesar
+            Ingresar
           </Button>
           <Button
             variant="light"

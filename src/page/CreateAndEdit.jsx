@@ -24,7 +24,13 @@ export default function CreateAndEdit() {
   const { userData, getOneRecipe } = useGlobalContext()
   const go = useNavigate()
   const { id } = useParams()
-  const { form, equalForm, buildForm, addIngredient } = useForm()
+  const {
+    form,
+    equalForm,
+    buildForm,
+    addIngredient,
+    deleteIngredients
+  } = useForm()
 
   useEffect(() => {
     if (id) {
@@ -69,13 +75,11 @@ export default function CreateAndEdit() {
 
   const handlerAddIngredients = () => {
     if (ingredientsRef.current.value !== '') {
-      console.log(ingredientsRef.current.value, '---ingredientsRef.current.value')
       dispatch({
         type: '[INGR] ADD',
         payload: ingredientsRef.current.value
       })
       addIngredient(ingredientsRef.current.value)
-      console.log(form, '---form postrerior')
       ingredientsRef.current.value = ''
       ingredientsRef.current.focus()
     }
@@ -144,11 +148,11 @@ export default function CreateAndEdit() {
               </Button>
             </div>
             <ul className="flex flex-col">
-              {stateIngredient.map((ingredient) => (
+              {form.ingredients?.map((ingredient) => (
                 <Badge key={ingredient._id} className="mr-1 my-2">
                   <span
                     className="flex items-center"
-                    onClick={() => dispatch({ type: '[INGR] DELETE', payload: ingredient._id })}
+                    onClick={() => deleteIngredients(ingredient._id)}
                   >
                     <Icon.delete
                       className='mr-4 hover:cursor-pointer'

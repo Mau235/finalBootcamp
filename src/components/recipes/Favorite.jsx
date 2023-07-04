@@ -36,8 +36,6 @@ export default function Favorite({ id, name }) {
         </div>
       )
     }
-    console.log(document.location.href.find('favoritos'))
-
   };
 
   useEffect(() => {
