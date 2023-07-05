@@ -24,10 +24,10 @@ export const useForm = () => {
     })  
   }
   
-  const deleteIngredients = (id) => {
+  const deleteIngredients = (name) => {
     dispatch({
       type:'[INGR] DELETE',
-      payload: id
+      payload: name
     })
   }
 

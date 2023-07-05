@@ -142,10 +142,10 @@ export default function CreateAndEdit() {
             </div>
             <ul className="flex flex-col">
               {stateIngredient.map((ingredient) => (
-                <Badge key={ingredient._id} className="mr-1 my-2">
+                <Badge key={ingredient.name} className="mr-1 my-2">
                   <span
                     className="flex items-center"
-                    onClick={() => deleteIngredients(ingredient._id)}
+                    onClick={() => deleteIngredients(ingredient.name)}
                   >
                     <Icon.delete
                       className='mr-4 hover:cursor-pointer'
