@@ -1,41 +1,63 @@
-import { useState } from "react"
-import { createId } from "../helpers/tools"
-import { formInitialsValue } from "../constant/initialsState"
+import { useEffect, useReducer, useState } from "react"
+import { formInitialsValue, logInRegisterInitial } from "../constant/initialsState"
+import { ingregdientsReducer } from "../components/reducers/ingregdientsReducer"
 
 export const useForm = () => {
-    const [form, setForm] = useState({})
+  const [stateIngredient, dispatch] = useReducer(ingregdientsReducer, [])
+  const [form, setForm] = useState({})
+  
+  const initialRecip = () => setForm(formInitialsValue)
+  
+  const initialLoginRegister = () => setForm(logInRegisterInitial)
 
-    const buildForm = (event)=> {
-        const { value, name } = event.target;
-        setForm({
-          ...form,
-          [name]: value,
-        });        
-    }
+  useEffect(() => {
+    setForm({
+      ...form,
+      ingredients: stateIngredient
+    })
+  }, [stateIngredient])
 
-    const equalForm = (res) => setForm(res)
+  const addIngredient = (ingr) => {    
+    dispatch({
+      type: '[INGR] ADD',
+      payload: ingr
+    })  
+  }
+  
+  const deleteIngredients = (id) => {
+    dispatch({
+      type:'[INGR] DELETE',
+      payload: id
+    })
+  }
 
-    const addIngredient = (ingr) => {    
+  const equalForm = (res) => {
+    setForm(res)
+    dispatch({
+      type: '[INGR] ALLINGR',
+      payload: res.ingredients
+    })
+  }
 
-      const objIngredient = {
-        _id: createId(),
-        name: ingr
-      }
-      form.ingredients = [
-        ...form.ingredient ,
-        objIngredient
-      ]
-    }
-    const deleteIngredients = (id) => {
-      console.log(id,'----------SIIIIIIII')
-      const obj = form.ingredients.filter(ingr => ingr._id === id)
-      form.ingredients = obj
-    }
-    return {
-        form,
-        buildForm,
-        equalForm,
-        addIngredient,
-        deleteIngredients
-    }
+
+
+  
+  const buildForm = (event)=> {
+    const { value, name } = event.target;
+    setForm({
+      ...form,
+      [name]: value,
+    });        
+  }
+
+  return {
+      form,
+      buildForm,
+      equalForm,
+      stateIngredient,
+      addIngredient,
+      deleteIngredients,
+      initialRecip,
+      initialLoginRegister
+  }
 }

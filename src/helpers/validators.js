@@ -38,6 +38,6 @@ export const setErrorMsgCreatAndEdit = (res) => {
     msg = "Ingrese una URL de la imagen"
   }
   if(res.server){
-    msg = res.server
+    msg = "Hubo un error al guardar, Intenta nuevamente"
   }
 }

@@ -2,8 +2,7 @@ import { Badge, Button, TextInput, Title } from "@tremor/react"
 import { BODY_CONTAINER, BORDER_BLACK } from "../constant/myConstant"
 import { capitalize } from "../helpers/tools"
 import { useNavigate, useParams } from "react-router-dom"
-import { useEffect, useReducer, useRef, useState } from "react"
-import { ingregdientsReducer } from "../components/reducers/ingregdientsReducer"
+import { useEffect, useRef, useState } from "react"
 import { back, deleteIco, plus } from "../components/icons"
 import { toast } from "sonner"
 import { useGlobalContext } from '../context/GlobalContext'
@@ -18,7 +17,6 @@ const Icon = {
 }
 
 export default function CreateAndEdit() {
-  const [stateIngredient, dispatch] = useReducer(ingregdientsReducer, [])
   const [opacity, setOpacity] = useState(false)
   const ingredientsRef = useRef()
   const { userData, getOneRecipe } = useGlobalContext()
@@ -29,17 +27,16 @@ export default function CreateAndEdit() {
     equalForm,
     buildForm,
     addIngredient,
-    deleteIngredients
+    deleteIngredients,
+    stateIngredient,
+    initialRecip
   } = useForm()
 
   useEffect(() => {
+    initialRecip()
     if (id) {
       const res = getOneRecipe(id)
       equalForm(res)
-      dispatch({
-        type: '[INGR] GETALL',
-        payload: res.ingredients
-      })
     }
   }, [])
 
@@ -75,10 +72,6 @@ export default function CreateAndEdit() {
 
   const handlerAddIngredients = () => {
     if (ingredientsRef.current.value !== '') {
-      dispatch({
-        type: '[INGR] ADD',
-        payload: ingredientsRef.current.value
-      })
       addIngredient(ingredientsRef.current.value)
       ingredientsRef.current.value = ''
       ingredientsRef.current.focus()
@@ -103,7 +96,7 @@ export default function CreateAndEdit() {
       <div className={`grid md:grid-cols-2 ${BORDER_BLACK}`} >
         <div className="flex justify-center items-center py-6 md:py-0 "
           style={{
-            backgroundImage: `url(${form.imagePath ?? form.imagePath})`,
+            backgroundImage: `url(${form?.imagePath ?? form?.imagePath})`,
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'left center',
@@ -148,7 +141,7 @@ export default function CreateAndEdit() {
               </Button>
             </div>
             <ul className="flex flex-col">
-              {form.ingredients?.map((ingredient) => (
+              {stateIngredient.map((ingredient) => (
                 <Badge key={ingredient._id} className="mr-1 my-2">
                   <span
                     className="flex items-center"

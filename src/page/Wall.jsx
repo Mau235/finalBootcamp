@@ -13,7 +13,7 @@ export default function Wall() {
 
   const handlerStart = async () => {
     const res = await getWall(userData.idToken);
-    if (res.length === 0 || res === 'Invalid token') {
+    if (res.length === 0) {
       setLook(false);
     } else {
       setLook(true);

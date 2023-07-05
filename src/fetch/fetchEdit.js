@@ -1,15 +1,15 @@
 import { HEADERS_CONTENT_TYPE } from "../constant/myConstant"
 import { setErrorMsgCreatAndEdit } from "../helpers/validators"
 
-export const EditRecipeFetch = async (userData, form,id) => {    
-    
-    const url = `https://backend-recipes-bootcamps-tribe.onrender.com/api/recipes/edit/${id}?auth=${userData.idToken}`
+export const EditRecipeFetch = async (userData, form,id) => {  
 
+    const url = `https://backend-recipes-bootcamps-tribe.onrender.com/api/recipes/edit/${id}?auth=${userData.idToken}`
+    
     const obj = {        
         ...form,
         userEmail:userData.email,
         __v: 0,
-        _id:userData._id        
+        _id:userData.localId        
     }
     const options = {
         method: 'PUT',
@@ -18,14 +18,14 @@ export const EditRecipeFetch = async (userData, form,id) => {
     }
     const data = await fetch(url, options)
     const res = await data.json()
-
-    if (data.status === 500) {
-        res.server = "Hubo un error al guardar, Intenta nuevamente"
+    
+    if ( data.status === 500 ) {
+        res.server = ""
         setErrorMsgCreatAndEdit(res)
         throw new Error("Error del servidor")
     }
 
-    if(res.errors){
+    if( res.errors ){
         setErrorMsgCreatAndEdit(res)
         throw new Error('Hubo un error')
     }

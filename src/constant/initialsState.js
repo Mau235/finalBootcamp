@@ -1,5 +1,11 @@
 export const formInitialsValue = {
     name:"",
     description:"",
-    ingredients:[]
+    ingredients:[],
+    imagePath:""
+}
+
+export const logInRegisterInitial = {
+    email:"",
+    password:""
 }

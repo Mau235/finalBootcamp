@@ -24,7 +24,7 @@ function App() {
   return (
     <>
       <Toaster
-        position="top-left"
+        position="top-center"
         expand={true}
         richColors
       />
