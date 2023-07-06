@@ -4,21 +4,34 @@ export const validRecip = (form) => {
 
   if (form.name === '') {
     arrErr.push({ msg: 'Ingrese un nombre' });
-    errBool.name =
+    errBool.name = true
   }
   if (form.description === '') {
     arrErr.push({ msg: 'Ingrese una descripcion' });
+    errBool.description = true
   }
   if (form.imagePath === '') {
-    arrErr.push({ msg: 'Ingrese un URL para la imagen' });
+    arrErr.push({ msg: 'Ingrese la URL para la imagen' });
+    errBool.imagePath = true
   }
   if (form.ingredients.length === 0) {
     arrErr.push({ msg: 'Ingrese al menos un ingrediente' });
+    errBool.ingredients = true
   }
 
   if (arrErr.length === 0) {
-    return false;
+    const valid = false
+
+    return {
+      valid,
+      errBool
+    };
   } else {
-    return arrErr;
+    const valid = arrErr
+
+    return {
+      valid,
+      errBool
+    };
   }
 };

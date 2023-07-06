@@ -43,34 +43,33 @@ export default function CreateAndEdit() {
   }, []);
 
   const handlerFetchRecipe = () => {
-    console.log(form,'----FORM')
-    const valid = validRecip(form);
-    if (valid !== false) {
+    const { valid, errBool } = validRecip(form);
+    setError(errBool)
+    if (!valid) {
+      if (id) {
+        toast.promise(EditRecipeFetch(userData, form, id), {
+          loading: 'Guardando cambios...',
+          success: () => {
+            go('/wall')
+            return 'La modificacion se hizo correctamente'
+          },
+          error: getErrorMsg(),
+        })
+      } else {
+        toast.promise(AddRecipeFetch(userData.idToken, form), {
+          loading: 'Agregando...',
+          success: () => {
+            go('/wall')
+            return 'Se guardo correctamente'
+          },
+          error: getErrorMsg(),
+        })
+      }
+    } else {
       valid.map((val) => {
-        
         toast.error(val.msg);
       });
     }
-
-    // if (id) {
-    //   toast.promise(EditRecipeFetch(userData, form, id), {
-    //     loading: 'Guardando cambios...',
-    //     success: () => {
-    //       go('/wall')
-    //       return 'La modificacion se hizo correctamente'
-    //     },
-    //     error: getErrorMsg(),
-    //   })
-    // } else {
-    //   toast.promise(AddRecipeFetch(userData.idToken, form), {
-    //     loading: 'Agregando...',
-    //     success: () => {
-    //       go('/wall')
-    //       return 'Se guardo correctamente'
-    //     },
-    //     error: getErrorMsg(),
-    //   })
-    // }
   };
 
   useEffect(() => {
@@ -108,16 +107,15 @@ export default function CreateAndEdit() {
         <div
           className="flex justify-center items-center py-6 md:py-0 "
           style={{
-            backgroundImage: `url(${form?.imagePath ?? form?.imagePath})`,
+            backgroundImage: `url(${form.imagePath ?? form.imagePath})`,
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'left center',
           }}
         >
           <div
-            className={`bg-white p-6 rounded-lg ${
-              opacity ? 'bg-opacity-70 ' : 'shadow-xl'
-            }`}
+            className={`bg-white p-6 rounded-lg ${opacity ? 'bg-opacity-70 ' : 'shadow-xl'
+              }`}
           >
             <Title className="mb-2">Ingrese la URL de la imagen</Title>
             <TextInput
@@ -126,6 +124,7 @@ export default function CreateAndEdit() {
               name="imagePath"
               onChange={buildForm}
               defaultValue={form.imagePath ?? form.imagePath}
+              error={error.imagePath}
             />
           </div>
         </div>
@@ -136,8 +135,8 @@ export default function CreateAndEdit() {
               name="name"
               onChange={buildForm}
               className="shadow-xl"
-              
               defaultValue={form.name ?? form.name}
+              error={error.name}
             />
             <TextInput
               placeholder="Descripción"
@@ -145,6 +144,8 @@ export default function CreateAndEdit() {
               onChange={buildForm}
               className="shadow-xl"
               defaultValue={form.description ?? form.description}
+              error={error.description}
+
             />
             <div className="flex gap-2">
               <TextInput
@@ -154,6 +155,7 @@ export default function CreateAndEdit() {
                 }
                 className="shadow-xl"
                 ref={ingredientsRef}
+                error={error.ingredients}
               />
               <Button onClick={handlerAddIngredients}>
                 <Icon.plus />

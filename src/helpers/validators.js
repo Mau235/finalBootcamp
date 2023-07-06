@@ -27,17 +27,6 @@ export const setErrorMsgRegister = (res) => {
 }
 
 
-export const setErrorMsgCreatAndEdit = (res) => {
-  if( res.errors[0].param === "name"){
-    msg = "El nombre de es requerido"
-  }
-  if( res.errors[0].param === "description"){
-    msg = "La descripcion es requerido"
-  }
-  if( res.errors[0].param === "imagePath"){
-    msg = "Ingrese una URL de la imagen"
-  }
-  if(res.server){
-    msg = "Hubo un error al guardar, Intenta nuevamente"
-  }
+export const setErrorMsgCreatAndEdit = (res) => { 
+    msg = "Hubo un error en el servidor"
 }
