@@ -1,27 +1,29 @@
-import { Badge, Button, TextInput, Title } from "@tremor/react"
-import { BODY_CONTAINER, BORDER_BLACK } from "../constant/myConstant"
-import { capitalize } from "../helpers/tools"
-import { useNavigate, useParams } from "react-router-dom"
-import { useEffect, useRef, useState } from "react"
-import { back, deleteIco, plus } from "../components/icons"
-import { toast } from "sonner"
-import { useGlobalContext } from '../context/GlobalContext'
-import { AddRecipeFetch } from "../fetch/fetchAddRecipe"
-import { EditRecipeFetch } from "../fetch/fetchEdit"
-import { useForm } from "../hooks/useForm"
-import { getErrorMsg } from "../helpers/validators"
+import { Badge, Button, TextInput, Title } from '@tremor/react';
+import { BODY_CONTAINER, BORDER_BLACK } from '../constant/myConstant';
+import { capitalize } from '../helpers/tools';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { back, deleteIco, plus } from '../components/icons';
+import { toast } from 'sonner';
+import { useGlobalContext } from '../context/GlobalContext';
+import { AddRecipeFetch } from '../fetch/fetchAddRecipe';
+import { EditRecipeFetch } from '../fetch/fetchEdit';
+import { useForm } from '../hooks/useForm';
+import { getErrorMsg } from '../helpers/validators';
+import { validRecip } from '../helpers/validatorRecip';
 
 const Icon = {
   plus,
-  delete: deleteIco
-}
+  delete: deleteIco,
+};
 
 export default function CreateAndEdit() {
-  const [opacity, setOpacity] = useState(false)
-  const ingredientsRef = useRef()
-  const { userData, getOneRecipe } = useGlobalContext()
-  const go = useNavigate()
-  const { id } = useParams()
+  const [opacity, setOpacity] = useState(false);
+  const [error, setError] = useState({})
+  const ingredientsRef = useRef();
+  const { userData, getOneRecipe } = useGlobalContext();
+  const go = useNavigate();
+  const { id } = useParams();
   const {
     form,
     equalForm,
@@ -29,62 +31,71 @@ export default function CreateAndEdit() {
     addIngredient,
     deleteIngredients,
     stateIngredient,
-    initialRecip
-  } = useForm()
+    initialRecip,
+  } = useForm();
 
   useEffect(() => {
-    initialRecip()
+    initialRecip();
     if (id) {
-      const res = getOneRecipe(id)
-      equalForm(res)
+      const res = getOneRecipe(id);
+      equalForm(res);
     }
-  }, [])
+  }, []);
 
   const handlerFetchRecipe = () => {
-    if (id) {
-      toast.promise(EditRecipeFetch(userData, form, id), {
-        loading: 'Guardando cambios...',
-        success: () => {
-          go('/wall')
-          return 'La modificacion se hizo correctamente'
-        },
-        error: getErrorMsg(),
-      })
-    } else {
-      toast.promise(AddRecipeFetch(userData.idToken, form), {
-        loading: 'Agregando...',
-        success: () => {
-          go('/wall')
-          return 'Se guardo correctamente'
-        },
-        error: getErrorMsg(),
-      })
+    console.log(form,'----FORM')
+    const valid = validRecip(form);
+    if (valid !== false) {
+      valid.map((val) => {
+        
+        toast.error(val.msg);
+      });
     }
+
+    // if (id) {
+    //   toast.promise(EditRecipeFetch(userData, form, id), {
+    //     loading: 'Guardando cambios...',
+    //     success: () => {
+    //       go('/wall')
+    //       return 'La modificacion se hizo correctamente'
+    //     },
+    //     error: getErrorMsg(),
+    //   })
+    // } else {
+    //   toast.promise(AddRecipeFetch(userData.idToken, form), {
+    //     loading: 'Agregando...',
+    //     success: () => {
+    //       go('/wall')
+    //       return 'Se guardo correctamente'
+    //     },
+    //     error: getErrorMsg(),
+    //   })
+    // }
   };
 
   useEffect(() => {
     if (form.imagePath) {
-      setOpacity(true)
+      setOpacity(true);
     } else {
-      setOpacity(false)
+      setOpacity(false);
     }
-  }, [form])
+  }, [form]);
 
   const handlerAddIngredients = () => {
     if (ingredientsRef.current.value !== '') {
-      addIngredient(ingredientsRef.current.value)
-      ingredientsRef.current.value = ''
-      ingredientsRef.current.focus()
+      addIngredient(ingredientsRef.current.value);
+      ingredientsRef.current.value = '';
+      ingredientsRef.current.focus();
     }
-  }
+  };
 
   const handlerBack = () => {
     if (id) {
-      go(`/wall/receta/${id}`)
+      go(`/wall/receta/${id}`);
     } else {
-      go(`/wall`)
+      go(`/wall`);
     }
-  }
+  };
 
   return (
     <div className={BODY_CONTAINER}>
@@ -93,8 +104,9 @@ export default function CreateAndEdit() {
           {id ? 'Editar receta' : 'Crear receta'}
         </h1>
       </div>
-      <div className={`grid md:grid-cols-2 ${BORDER_BLACK}`} >
-        <div className="flex justify-center items-center py-6 md:py-0 "
+      <div className={`grid md:grid-cols-2 ${BORDER_BLACK}`}>
+        <div
+          className="flex justify-center items-center py-6 md:py-0 "
           style={{
             backgroundImage: `url(${form?.imagePath ?? form?.imagePath})`,
             backgroundSize: 'cover',
@@ -102,7 +114,11 @@ export default function CreateAndEdit() {
             backgroundPosition: 'left center',
           }}
         >
-          <div className={`bg-white p-6 rounded-lg ${opacity ? 'bg-opacity-70 ' : 'shadow-xl'}`} >
+          <div
+            className={`bg-white p-6 rounded-lg ${
+              opacity ? 'bg-opacity-70 ' : 'shadow-xl'
+            }`}
+          >
             <Title className="mb-2">Ingrese la URL de la imagen</Title>
             <TextInput
               placeholder="http://image..."
@@ -117,14 +133,15 @@ export default function CreateAndEdit() {
           <div className="my-auto grid gap-4">
             <TextInput
               placeholder="Nombre"
-              name='name'
+              name="name"
               onChange={buildForm}
               className="shadow-xl"
+              
               defaultValue={form.name ?? form.name}
             />
             <TextInput
               placeholder="Descripción"
-              name='description'
+              name="description"
               onChange={buildForm}
               className="shadow-xl"
               defaultValue={form.description ?? form.description}
@@ -132,7 +149,9 @@ export default function CreateAndEdit() {
             <div className="flex gap-2">
               <TextInput
                 placeholder="Agregar ingredientes"
-                onKeyDown={(event) => event.key === 'Enter' ? handlerAddIngredients() : ''}
+                onKeyDown={(event) =>
+                  event.key === 'Enter' ? handlerAddIngredients() : ''
+                }
                 className="shadow-xl"
                 ref={ingredientsRef}
               />
@@ -147,17 +166,17 @@ export default function CreateAndEdit() {
                     className="flex items-center"
                     onClick={() => deleteIngredients(ingredient.name)}
                   >
-                    <Icon.delete
-                      className='mr-4 hover:cursor-pointer'
-                    />
-                    <span className="text-lg">{capitalize(ingredient.name)}</span>
+                    <Icon.delete className="mr-4 hover:cursor-pointer" />
+                    <span className="text-lg">
+                      {capitalize(ingredient.name)}
+                    </span>
                   </span>
                 </Badge>
               ))}
             </ul>
             <div className="flex justify-between">
               <Button
-                variant='secondary'
+                variant="secondary"
                 className="mt-8"
                 onClick={handlerBack}
                 icon={back}
@@ -165,7 +184,7 @@ export default function CreateAndEdit() {
                 Volver
               </Button>
               <Button
-                variant='primary'
+                variant="primary"
                 className="mt-8"
                 icon={plus}
                 onClick={handlerFetchRecipe}
@@ -177,5 +196,5 @@ export default function CreateAndEdit() {
         </div>
       </div>
     </div>
-  )
+  );
 }

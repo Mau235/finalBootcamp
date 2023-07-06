@@ -14,7 +14,7 @@ export default function NoRecipesBuy() {
             variant="primary"
             onClick={() => go('/wall')}
           >
-            Ir al wall
+            Ir a wall
           </Button>
 
         </div>

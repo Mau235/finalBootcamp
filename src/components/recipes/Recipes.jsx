@@ -2,21 +2,15 @@ import { Button, Card } from '@tremor/react';
 import { useNavigate } from 'react-router-dom';
 import { capitalize } from '../../helpers/tools';
 import TransitionRecip from '../transitions/TransitionRecip';
-import st from '../../style/recipes.module.css'
+import st from '../../style/recipes.module.css';
 import Favorite from './Favorite';
 
-
-export default function Recipes({
-  _id,
-  name,
-  description,
-  imagePath
-}) {
-  const go = useNavigate()
+export default function Recipes({ _id, name, description, imagePath }) {
+  const go = useNavigate();
 
   const handlerPlus = () => {
-    go(`/wall/receta/${_id}`)
-  }
+    go(`/wall/receta/${_id}`);
+  };
 
   return (
     <TransitionRecip>
@@ -27,7 +21,7 @@ export default function Recipes({
       >
         <Favorite id={_id} name={name} />
         <h2 className="mb-4 text-2xl text-center">{capitalize(name)}</h2>
-        <div className={st.target}>
+        <div className={st.target} onClick={handlerPlus}>
           <img
             src={imagePath}
             alt={description}
@@ -37,7 +31,6 @@ export default function Recipes({
             <Button
               size="xs"
               variant="primary"
-              onClick={handlerPlus}
               className={`px-8 py-2 ${st.buttom}`}
             >
               Leer Receta
