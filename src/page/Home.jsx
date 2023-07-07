@@ -5,11 +5,8 @@ import { useForm } from '../hooks/useForm';
 
 export default function Home() {
   const [watch, setWatch] = useState(true);
-  const { initialLoginRegister } = useForm()
 
-  useEffect(() => {
-    initialLoginRegister()
-  }, [])
+  
 
   return (
     <div className="max-w-xs sm:max-w-md mx-auto pt-8 ">

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Metric, TextInput } from '@tremor/react';
 import Transitions from '../transitions/Transitions';
 import { login } from '../../fetch/fetchLogIn';
@@ -8,28 +8,41 @@ import { useGlobalContext } from '../../context/GlobalContext';
 import { BORDER_BLACK } from '../../constant/myConstant';
 import { useForm } from '../../hooks/useForm';
 import { getErrorMsg } from '../../helpers/validators';
+import { validLogIn } from '../../helpers/validatorLogin';
 
 export default function Login({ stateWatch }) {
   const [disa, setDisa] = useState(false);
+  const [error, setError] = useState({})
   const { setUserData } = useGlobalContext();
-  const { form, buildForm } = useForm();
   const go = useNavigate();
+  const { form, buildForm, initialLoginRegister } = useForm();
+
+  useEffect(() => {
+    initialLoginRegister()
+  }, [])
 
   const handlerSubmit = async () => {
-    
-    setDisa(true);
-    toast.promise(login(form), {
-      loading: 'Ingresando...',
-      success: (data) => {
-        setUserData(data);
-        go('/wall');
-        return `${data.email} ingreso correctamente`;
-      },
-      error: () => {
-        setDisa(false);
-        return getErrorMsg();
-      },
-    });
+    const { valid, errBool } = validLogIn(form)
+    setError(errBool)
+    if (!valid) {
+      setDisa(true);
+      toast.promise(login(form), {
+        loading: 'Ingresando...',
+        success: (data) => {
+          setUserData(data);
+          go('/wall');
+          return `${data.email} ingreso correctamente`;
+        },
+        error: () => {
+          setDisa(false);
+          return getErrorMsg();
+        },
+      });
+    } else {
+      valid.map((val) => {
+        toast.error(val.msg);
+      });
+    }
   };
 
   return (
@@ -44,12 +57,16 @@ export default function Login({ stateWatch }) {
             placeholder="Email"
             name="email"
             onChange={buildForm}
+            error={error.email}
+
           />
           <TextInput
             placeholder="Contraseña"
             name="password"
-           /*  type="password" */
+            type="password"
             onChange={buildForm}
+            error={error.password}
+
           />
           <Button onClick={handlerSubmit} disabled={disa}>
             Ingresar
