@@ -7,11 +7,11 @@ export const validLogIn = (form) => {
         arrErr.push({ msg:'Ingrese un email'})
         errBool.email = true
     }
-    if( form.password === ""){
+    if( form.password === "" ){
         arrErr.push({ msg:'Ingrese una contraseña'})
         errBool.password = true
     }
-    if( form.email.includes("@") ){
+    if( !form.email.includes("@") ){
         arrErr.push({ msg:'El email no es valido'})
         errBool.email = true
     }
