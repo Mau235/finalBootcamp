@@ -19,7 +19,7 @@ const Icon = {
 
 export default function CreateAndEdit() {
   const [opacity, setOpacity] = useState(false);
-  const [error, setError] = useState({})
+  const [error, setError] = useState({});
   const ingredientsRef = useRef();
   const { userData, getOneRecipe } = useGlobalContext();
   const go = useNavigate();
@@ -44,26 +44,26 @@ export default function CreateAndEdit() {
 
   const handlerFetchRecipe = () => {
     const { valid, errBool } = validRecip(form);
-    setError(errBool)
+    setError(errBool);
     if (!valid) {
       if (id) {
         toast.promise(EditRecipeFetch(userData, form, id), {
           loading: 'Guardando cambios...',
           success: () => {
-            go('/wall')
-            return 'La modificacion se hizo correctamente'
+            go('/wall');
+            return 'La modificacion se hizo correctamente';
           },
           error: getErrorMsg(),
-        })
+        });
       } else {
         toast.promise(AddRecipeFetch(userData.idToken, form), {
           loading: 'Agregando...',
           success: () => {
-            go('/wall')
-            return 'Se guardo correctamente'
+            go('/wall');
+            return 'Se guardo correctamente';
           },
           error: getErrorMsg(),
-        })
+        });
       }
     } else {
       valid.map((val) => {
@@ -103,9 +103,9 @@ export default function CreateAndEdit() {
           {id ? 'Editar receta' : 'Crear receta'}
         </h1>
       </div>
-      <div className={`grid md:grid-cols-2 ${BORDER_BLACK}`}>
+      <div className={`grid lg:grid-cols-2 ${BORDER_BLACK}`}>
         <div
-          className="flex justify-center items-center py-6 md:py-0 "
+          className="flex justify-center items-center py-6"
           style={{
             backgroundImage: `url(${form.imagePath ?? form.imagePath})`,
             backgroundSize: 'cover',
@@ -114,8 +114,9 @@ export default function CreateAndEdit() {
           }}
         >
           <div
-            className={`bg-white p-6 rounded-lg ${opacity ? 'bg-opacity-70 ' : 'shadow-xl'
-              }`}
+            className={`bg-white p-6 rounded-lg ${
+              opacity ? 'bg-opacity-70 ' : 'shadow-xl'
+            }`}
           >
             <Title className="mb-2">Ingrese la URL de la imagen</Title>
             <TextInput
@@ -145,7 +146,6 @@ export default function CreateAndEdit() {
               className="shadow-xl"
               defaultValue={form.description ?? form.description}
               error={error.description}
-
             />
             <div className="flex gap-2">
               <TextInput

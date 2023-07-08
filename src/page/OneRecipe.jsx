@@ -17,10 +17,10 @@ const Icon = {
 
 export default function OneRecipe() {
   const { getOneRecipe, userData, addBuyProduct } = useGlobalContext();
-  const { id } = useParams();
-  const go = useNavigate();
   const [recip, setRecip] = useState(null);
   const [show, setShow] = useState(false);
+  const { id } = useParams();
+  const go = useNavigate();
 
   useEffect(() => {
     setRecip(getOneRecipe(id));

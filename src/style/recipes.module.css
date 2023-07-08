@@ -11,6 +11,10 @@
     opacity: 0;
     transform: translateY(-10px);
     transition: all .2s ease-in-out;
+    -webkit-transform: translateY(-10px);
+    -moz-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    -o-transform: translateY(-10px);
 }
 .greyOpacity {
     position: absolute;
@@ -27,23 +31,26 @@
 
     transition: all .2s ease-in-out;
 }
+@media( max-width: 600px ){
+    .buttom{
+        opacity: 1;        
+    }    
+    .greyOpacity{
+        align-items: end;
+    }
+}
 .target:hover{
     cursor: pointer;
-   /*  transition: all .2s ease-in-out; */
 }
 .target:hover .greyOpacity {
     background: rgba(121, 121, 121, .5);
-    /* transition: all .5s ease-in-out; */
-
 }
 
 .target:hover img{
     scale: 1.2;
-   /*  transition: all .5s ease-in-out; */
 }
 .target:hover .buttom{
     opacity: 1;
     transform: translateY(0);
-    /* transition: all .2s ease-in-out; */
 
 }

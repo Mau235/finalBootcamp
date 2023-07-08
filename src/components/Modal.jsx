@@ -3,7 +3,11 @@ import { BORDER_BLACK } from "../constant/myConstant";
 import { back, deleteIco } from "./icons";
 
 export default function Modal({ show, setShow, name,action }) {
-
+  const handlerClear = () => {
+    action()
+    setShow(false)
+  }
+  
   return (
     <>
       {show && (
@@ -21,10 +25,7 @@ export default function Modal({ show, setShow, name,action }) {
               <Button
                 variant="primary"
                 icon={deleteIco}
-                onClick={() => {
-                  action()
-                  setShow(false)
-                }}
+                onClick={handlerClear}
               >
                 Borrar
               </Button>
