@@ -8,6 +8,7 @@ import { capitalize } from '../helpers/tools';
 import { deleteRcipes } from '../fetch/fetchDelete';
 import Modal from '../components/Modal';
 import { toast } from 'sonner';
+import { createBrowserHistory } from "history";
 import TransitionRecip from '../components/transitions/TransitionRecip';
 
 const Icon = {
@@ -21,7 +22,8 @@ export default function OneRecipe() {
   const [show, setShow] = useState(false);
   const { id } = useParams();
   const go = useNavigate();
-
+  const history = createBrowserHistory();
+  
   useEffect(() => {
     setRecip(getOneRecipe(id));
   }, []);
@@ -98,7 +100,7 @@ export default function OneRecipe() {
                   variant="secondary"
                   icon={back}
                   className="mt-8"
-                  onClick={() => go('/wall')}
+                  onClick={() =>history.go(-1)}
                 >
                   Volver
                 </Button>
